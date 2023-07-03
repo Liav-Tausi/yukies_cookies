@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response, Router } from "express";
-import { loginOrRegisterController } from '../controllers/loginOrRegisterController'
+import { loginOrRegisterController } from '../controllers/userControllers/loginOrRegisterController'
 
 export const loginOrRegisterRouter: Router = Router();
 
@@ -8,11 +8,11 @@ loginOrRegisterRouter.use((req: Request, res: Response, next: NextFunction) => {
 
   if (loginOrRegister) {
     if (loginOrRegister === "1") {
-      loginOrRegisterController.login(req, res);
+      loginOrRegisterController.loginController(req, res);
     } else if (loginOrRegister === "2") {
-      loginOrRegisterController.register(req, res);
+      loginOrRegisterController.registerController(req, res);
     } else {
-      loginOrRegisterController.login(req, res);   
+      loginOrRegisterController.loginController(req, res);   
     }
   } else {
     next()
