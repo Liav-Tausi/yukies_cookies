@@ -1,16 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loginOrRegisterController = void 0;
-const loginOrRegisterHandler_1 = require("../../handlers/userHandlers/loginOrRegisterHandler");
+exports.accessOrRefreshController = void 0;
 const serverStatus_1 = require("../../enums/serverStatusesEnums/serverStatus");
 const serverMSG_1 = require("../../enums/serverStatusesEnums/serverMSG");
-exports.loginOrRegisterController = {
+const accessOrRefreshHandler_1 = require("../../handlers/userHandlers/accessOrRefreshHandler");
+exports.accessOrRefreshController = {
     loginController: async (req, res) => {
         try {
             const loginData = req.body;
-            loginOrRegisterHandler_1.loginOrRegisterHandler.loginHandler(loginData);
+            accessOrRefreshHandler_1.accessOrRefreshHandler.loginHandler(loginData);
             res.status(serverStatus_1.serverStatus.Success).json({
                 status: serverMSG_1.serverMSG.Success,
+                msg: 'login'
             });
         }
         catch (error) {
@@ -24,9 +25,10 @@ exports.loginOrRegisterController = {
     registerController: async (req, res) => {
         try {
             const registerData = req.body;
-            loginOrRegisterHandler_1.loginOrRegisterHandler.registerHandler(registerData);
+            accessOrRefreshHandler_1.accessOrRefreshHandler.registerHandler(registerData);
             res.status(serverStatus_1.serverStatus.Success).json({
                 status: serverMSG_1.serverMSG.Success,
+                msg: 'register'
             });
         }
         catch (error) {
@@ -38,4 +40,4 @@ exports.loginOrRegisterController = {
         }
     },
 };
-//# sourceMappingURL=loginOrRegisterController.js.map
+//# sourceMappingURL=accessOrRefreshController.js.map

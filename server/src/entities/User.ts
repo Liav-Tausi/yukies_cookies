@@ -15,12 +15,12 @@ export class User extends BaseEntity{
     @Matches(/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/, { message: userTableEnum.FullName + userTableEnumMSG.IsRequired })
     fullName: string
 
-    @Column()
+    @Column({ unique: true })
     @IsNotEmpty()
     @IsEmail()
     email: string
 
-    @Column()
+    @Column({ unique: true })
     @IsNotEmpty()
     @IsString()
     @IsPhoneNumber('IL',

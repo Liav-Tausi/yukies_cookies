@@ -5,3 +5,7 @@ export default interface IUser {
   password: string
   isStaff: boolean
 }
+
+export const isIUser = (value: any): value is IUser => {
+  return typeof value === 'object' && value !== null && 'username' in value;
+}

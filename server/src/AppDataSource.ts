@@ -1,8 +1,17 @@
 import "reflect-metadata";
-import { DataSource } from "typeorm";
 import dotenv from "dotenv";
+import { DataSource } from "typeorm";
+import { User } from "./entities/User";
+import { Cake } from "./entities/Cake";
+import { Cart } from "./entities/Cart";
+import { CartItems } from "./entities/CartItems";
+import { Favorite } from "./entities/Favorite";
+import { Order } from "./entities/Order";
+import { OrderItems } from "./entities/OrderItems";
+
 
 dotenv.config();
+
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -12,15 +21,20 @@ export const AppDataSource = new DataSource({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   synchronize: true,
-  logging: true,
-  entities: ["dist/entities/**/*{.js,.ts}"],
-  migrations: ["dist/migrations/**/*{.js,.ts}"],
-  subscribers: ["dist/subscribers/**/*{.js,.ts}"],
-  migrationsTableName: "migrations"
+  logging: false,
+  entities: [User, Cake, Cart, Favorite, Order, CartItems, OrderItems],
+  migrations: ["./dist/migrations/**/*{.js,.ts}"],
+  subscribers: [".dist/subscribers/**/*{.js,.ts}"],
+  migrationsTableName: "migrations",
+  cache: true
 });
 
-
-
-AppDataSource.initialize().then(async () => {
-  console.log('Data Source has been initialized!');
-}).catch(error => console.log('Error during Data Source initialization', error))
+export const main = async () => {
+  try {
+    await AppDataSource.initialize();
+    console.log("Data Source has been initialized!");
+  } catch (error) {
+    console.error("Error during application initialization:", error);
+    main();
+  }
+};

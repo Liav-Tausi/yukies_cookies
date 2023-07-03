@@ -2,7 +2,6 @@ import { IsNotEmpty, IsString, IsNumber, Length, Min, Max, IsUrl } from "class-v
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn } from "typeorm"
 import { cakeTableEnumConfig } from "../enums/ORMEnums/cakeTableEnum";
 
-
 @Entity()
 export class Cake extends BaseEntity{
 
