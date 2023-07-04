@@ -1,4 +1,5 @@
 export interface ILogin {
-  email: string
+  email?: string
+  phoneNumber?: string
   password: string
 }

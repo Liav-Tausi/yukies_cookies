@@ -29,11 +29,10 @@ const startServer = () => {
   });
 };
 
-(async () => {
+(
+  async () => {
   try {
     main();
     startServer();
-  } catch (error) {
-    console.error("Error during application initialization:", error);
-  }
-})();
+  } catch (error) { console.error("Error during application initialization:", error);}}
+)();

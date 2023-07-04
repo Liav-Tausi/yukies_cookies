@@ -8,10 +8,15 @@ exports.accessOrRefreshController = {
     loginController: async (req, res) => {
         try {
             const loginData = req.body;
-            accessOrRefreshHandler_1.accessOrRefreshHandler.loginHandler(loginData);
-            res.status(serverStatus_1.serverStatus.Success).json({
-                status: serverMSG_1.serverMSG.Success,
-                msg: 'login'
+            const handlerResult = await accessOrRefreshHandler_1.accessOrRefreshHandler.loginHandler(loginData);
+            const serverResultData = handlerResult.data;
+            const serverResultStatus = handlerResult.status;
+            res.status(serverResultStatus === serverStatus_1.serverStatus.Success ? serverStatus_1.serverStatus.Success :
+                serverResultStatus === serverStatus_1.serverStatus.NotFound ? serverStatus_1.serverStatus.NotFound : serverStatus_1.serverStatus.Unauthorized).json({
+                status: serverResultStatus ? serverResultStatus : serverStatus_1.serverStatus.Unauthorized,
+                data: serverResultData["refreshToken"] && serverResultData["accessToken"] ?
+                    serverResultData : serverResultData["data"] ?? serverResultData,
+                msg: handlerResult.msg
             });
         }
         catch (error) {
@@ -25,17 +30,21 @@ exports.accessOrRefreshController = {
     registerController: async (req, res) => {
         try {
             const registerData = req.body;
-            accessOrRefreshHandler_1.accessOrRefreshHandler.registerHandler(registerData);
-            res.status(serverStatus_1.serverStatus.Success).json({
-                status: serverMSG_1.serverMSG.Success,
-                msg: 'register'
+            const handlerResult = await accessOrRefreshHandler_1.accessOrRefreshHandler.registerHandler(registerData);
+            const serverResultData = handlerResult.data;
+            const serverResultStatus = handlerResult.status;
+            res.status(serverResultStatus === serverStatus_1.serverStatus.Success ? serverStatus_1.serverStatus.Created : serverStatus_1.serverStatus.RequestFail).json({
+                status: serverResultStatus ? serverResultStatus : serverStatus_1.serverStatus.RequestFail,
+                data: serverResultData["refreshToken"] && serverResultData["accessToken"] ?
+                    serverResultData : serverResultData["data"] ? serverMSG_1.serverErrorMSG.InvalidFields + serverResultData["data"] : serverResultData,
+                msg: handlerResult.msg
             });
         }
         catch (error) {
             console.error(`${serverMSG_1.serverErrorMSG.registerControllerERROR} ${error.stack}`);
             res.status(serverStatus_1.serverStatus.ServerFail).json({
                 status: serverMSG_1.serverMSG.ServerFail,
-                msg: error.message
+                msg: error.message,
             });
         }
     },

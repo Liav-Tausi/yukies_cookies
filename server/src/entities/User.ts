@@ -1,6 +1,5 @@
-import { IsNotEmpty, Matches, IsEmail, IsString, IsBoolean, IsPhoneNumber, IsStrongPassword,} from "class-validator";
+import { IsNotEmpty, Matches, IsEmail, IsStrongPassword, IsBoolean, IsMobilePhone } from "class-validator";
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn} from "typeorm"
-import { userTableEnum, userTableEnumConfig, userTableEnumMSG } from "../enums/ORMEnums/userTableEnum";
 
 
 @Entity()
@@ -11,9 +10,8 @@ export class User extends BaseEntity{
 
     @Column()
     @IsNotEmpty()
-    @IsString()
-    @Matches(/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/, { message: userTableEnum.FullName + userTableEnumMSG.IsRequired })
-    fullName: string
+    @Matches(/^[A-Za-z]+\s[A-Za-z]+$/)
+    fullName: string;
 
     @Column({ unique: true })
     @IsNotEmpty()
@@ -22,21 +20,13 @@ export class User extends BaseEntity{
 
     @Column({ unique: true })
     @IsNotEmpty()
-    @IsString()
-    @IsPhoneNumber('IL',
-    { message: userTableEnumMSG.PhoneNumber + userTableEnumMSG.IsRequired })
+    @IsMobilePhone('he-IL')
     phoneNumber: string
+
 
     @Column()
     @IsNotEmpty()
-    @IsString()
-    @IsStrongPassword({
-        minLength: userTableEnumConfig.MinLengthPassword,
-        minLowercase: userTableEnumConfig.MinLowercasePassword,
-        minUppercase: userTableEnumConfig.MinUppercasePassword,
-        minNumbers: userTableEnumConfig.MinNumbersPassword,
-        minSymbols: userTableEnumConfig.MinSymbolsPassword,
-    }, { message: userTableEnum.Password + userTableEnumMSG.ValidPassword})
+    @IsStrongPassword()
     password: string;
 
     @Column()

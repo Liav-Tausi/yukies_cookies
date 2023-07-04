@@ -4,8 +4,27 @@ export default interface IUser {
   phoneNumber: string
   password: string
   isStaff: boolean
+  id: number
+  createdAt: Date
+  updatedAt: Date
 }
 
 export const isIUser = (value: any): value is IUser => {
-  return typeof value === 'object' && value !== null && 'username' in value;
-}
+  if (typeof value !== 'object' || value === null) {
+    return false;
+  }
+  const requiredProperties: Array<keyof IUser> = [
+    'fullName',
+    'email',
+    'phoneNumber',
+    'password',
+    'isStaff',
+    'id',
+    'createdAt',
+    'updatedAt',
+  ];
+  return requiredProperties.every((property) =>
+    Object.prototype.hasOwnProperty.call(value, property)
+  );
+};
+

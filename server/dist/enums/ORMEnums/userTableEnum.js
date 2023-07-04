@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userTableEnumConfig = exports.userTableEnumMSG = exports.userTableEnum = void 0;
+exports.userTableEnumMSG = exports.userTableEnum = void 0;
 var userTableEnum;
 (function (userTableEnum) {
     userTableEnum["Username"] = "Username";
@@ -20,12 +20,4 @@ var userTableEnumMSG;
     userTableEnumMSG["ValidPassword"] = "must be at least 8 characters long and contain at least one upper and one lower case letters and two digits.";
     userTableEnumMSG["Staff"] = "Staff";
 })(userTableEnumMSG = exports.userTableEnumMSG || (exports.userTableEnumMSG = {}));
-var userTableEnumConfig;
-(function (userTableEnumConfig) {
-    userTableEnumConfig[userTableEnumConfig["MinLengthPassword"] = 8] = "MinLengthPassword";
-    userTableEnumConfig[userTableEnumConfig["MinLowercasePassword"] = 1] = "MinLowercasePassword";
-    userTableEnumConfig[userTableEnumConfig["MinUppercasePassword"] = 1] = "MinUppercasePassword";
-    userTableEnumConfig[userTableEnumConfig["MinNumbersPassword"] = 2] = "MinNumbersPassword";
-    userTableEnumConfig[userTableEnumConfig["MinSymbolsPassword"] = 0] = "MinSymbolsPassword";
-})(userTableEnumConfig = exports.userTableEnumConfig || (exports.userTableEnumConfig = {}));
 //# sourceMappingURL=userTableEnum.js.map

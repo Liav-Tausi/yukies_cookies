@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const class_validator_1 = require("class-validator");
 const typeorm_1 = require("typeorm");
-const userTableEnum_1 = require("../enums/ORMEnums/userTableEnum");
 let User = class User extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -22,8 +21,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)(),
     (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.Matches)(/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/, { message: userTableEnum_1.userTableEnum.FullName + userTableEnum_1.userTableEnumMSG.IsRequired }),
+    (0, class_validator_1.Matches)(/^[A-Za-z]+\s[A-Za-z]+$/),
     __metadata("design:type", String)
 ], User.prototype, "fullName", void 0);
 __decorate([
@@ -35,21 +33,13 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)({ unique: true }),
     (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsPhoneNumber)('IL', { message: userTableEnum_1.userTableEnumMSG.PhoneNumber + userTableEnum_1.userTableEnumMSG.IsRequired }),
+    (0, class_validator_1.IsMobilePhone)('he-IL'),
     __metadata("design:type", String)
 ], User.prototype, "phoneNumber", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsStrongPassword)({
-        minLength: userTableEnum_1.userTableEnumConfig.MinLengthPassword,
-        minLowercase: userTableEnum_1.userTableEnumConfig.MinLowercasePassword,
-        minUppercase: userTableEnum_1.userTableEnumConfig.MinUppercasePassword,
-        minNumbers: userTableEnum_1.userTableEnumConfig.MinNumbersPassword,
-        minSymbols: userTableEnum_1.userTableEnumConfig.MinSymbolsPassword,
-    }, { message: userTableEnum_1.userTableEnum.Password + userTableEnum_1.userTableEnumMSG.ValidPassword }),
+    (0, class_validator_1.IsStrongPassword)(),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
