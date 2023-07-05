@@ -4,8 +4,9 @@ import express, { Express } from "express";
 import cors from "cors";
 import helmet from "helmet";
 import compression from "compression";
+import bcrypt from 'bcrypt';
 
-import { accessOrRefreshRouter } from "./routers/accessOrRefreshRouter";
+import { loginOrRegisterRouter } from "./routers/loginOrRegisterRouter";
 import { test } from "./routers/test";
 import { main } from "./AppDataSource";
 
@@ -21,8 +22,9 @@ const startServer = () => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
-  app.use("/api/v1/auth", accessOrRefreshRouter);
+  app.use("/api/v1/auth", loginOrRegisterRouter);
   app.use("/test", test);
+
 
   app.listen(port, () => {
     console.log(`[server]: Server is running at http://localhost:${port}`);

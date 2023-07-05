@@ -3,14 +3,15 @@ import { ILogin } from "../../interfaces/userInterfaces/ILogin";
 import { IRegister } from "../../interfaces/userInterfaces/IRegister";
 import { serverStatus } from "../../enums/serverStatusesEnums/serverStatus";
 import { serverErrorMSG, serverMSG } from "../../enums/serverStatusesEnums/serverMSG";
-import { accessOrRefreshHandler } from "../../handlers/userHandlers/accessOrRefreshHandler";
+import { loginOrRegisterHandler } from "../../handlers/userHandlers/loginOrRegisterHandler";
 import { IServer } from "../../interfaces/serverInterfaces/IServer";
+import IUser from "../../interfaces/userInterfaces/IUser";
 
-export const accessOrRefreshController = {
+export const loginOrRegisterController = {
   loginController: async (req: Request, res: Response): Promise<void> => {
     try {
      const loginData: ILogin = req.body;
-      const handlerResult: IServer = await accessOrRefreshHandler.loginHandler(loginData);
+      const handlerResult: IServer = await loginOrRegisterHandler.loginHandler(loginData);
       const serverResultData = handlerResult.data
       const serverResultStatus = handlerResult.status
 
@@ -33,17 +34,16 @@ export const accessOrRefreshController = {
  registerController: async (req: Request, res: Response) => {
     try {
       const registerData: IRegister = req.body;
-      const handlerResult: IServer = await accessOrRefreshHandler.registerHandler(registerData);
+      const handlerResult: IServer = await loginOrRegisterHandler.registerHandler(registerData);
       const serverResultData = handlerResult.data
       const serverResultStatus = handlerResult.status
 
-      res.status(serverResultStatus === serverStatus.Success ? serverStatus.Created : serverStatus.RequestFail).json({
+      res.status(serverResultStatus === serverStatus.Created ? serverStatus.Created : serverStatus.RequestFail).json({
         status: serverResultStatus ? serverResultStatus : serverStatus.RequestFail,
         data: serverResultData["refreshToken"] && serverResultData["accessToken"] ?
          serverResultData : serverResultData["data"] ? serverErrorMSG.InvalidFields + serverResultData["data"] : serverResultData,
         msg: handlerResult.msg
       });
-
     } catch (error: any) {
       console.error(`${serverErrorMSG.registerControllerERROR} ${error.stack}`);
       res.status(serverStatus.ServerFail).json({
