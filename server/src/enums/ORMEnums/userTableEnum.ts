@@ -3,6 +3,7 @@ export enum userTableEnum {
   Email = 'Email',
   FullName = 'Full name',
   phoneNumber = 'Phone Number',
+  address = "address",
   Password = 'Password',
   Staff = 'Staff',
 }
@@ -16,3 +17,5 @@ export enum userTableEnumMSG {
   ValidPassword = 'must be at least 8 characters long and contain at least one upper and one lower case letters and two digits.',
   Staff = 'Staff',
 }
+
+

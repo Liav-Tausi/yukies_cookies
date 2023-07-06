@@ -14,7 +14,12 @@ import { serverMSG } from "../../enums/serverStatusesEnums/serverMSG";
 
 
 dotenv.config();
+
+if (!process.env.JWT_SECRET) {
+  throw new Error('JWT_SECRET environment variable is not defined');
+}
 const jwt_secret: string = process.env.JWT_SECRET
+
 
 const generateAccessToken = (userData: IUser): string  => {
   return jwt.sign({email: userData.email, password: userData.password}, jwt_secret, { expiresIn: '5m' }); 
@@ -25,10 +30,10 @@ const generateRefreshToken = (userData: IUser): string  => {
 
 export const loginOrRegisterHandler = {
   loginHandler: async (loginData: ILogin): Promise<IServer> => {
-    const { password } = loginData
     const dalResult: IServer = await loginOrRegisterDAL.loginDAL(loginData)
+
     if (isIUser(dalResult.data)) {
-      if (await bcrypt.compare(password, dalResult.data.password)) {
+      if (await bcrypt.compare(loginData.password, dalResult.data.password)) {
         return {
           status: serverStatus.Success,
           data: {refreshToken: generateRefreshToken(dalResult.data), accessToken: generateAccessToken(dalResult.data)},
@@ -38,13 +43,16 @@ export const loginOrRegisterHandler = {
       } else {
         return {status: serverStatus.Unauthorized, data: {}, msg: serverMSG.Unauthorized}
       }
+    } else {
+      return {status: serverStatus.ServerFail, data: {}, msg: serverMSG.ServerFail}
     }
   },
   registerHandler: async (registerData: IRegister): Promise<IServer> => {
-    const { fullName, email, phoneNumber, password } = registerData;
-    const validateUser = AppDataSource.manager.create(User, {fullName,email,phoneNumber,password,isStaff:false});
+    const { fullName, email, address, phoneNumber, password } = registerData;
+    const validateUser = AppDataSource.manager.create(User, {fullName,email,phoneNumber,password,address,isStaff:false});
     const validationResult = await validationDAL(validateUser)
-    if (!validationResult) {
+
+    if (validationResult.status === serverStatus.Success ) {
         registerData.password = await bcrypt.hash(password, 10);
         const dalResult: IServer = await loginOrRegisterDAL.registerDAL(registerData)
         if (dalResult.status === serverStatus.Created && isIUser(dalResult.data)) {

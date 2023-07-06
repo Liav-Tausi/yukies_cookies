@@ -10,6 +10,10 @@ export const validationDAL = async (values: object): Promise<IServer> => {
       status: serverStatus.RequestFail,
       data: validationErrors.map((error) => {return error.property})
     }
+  } else {
+    return {
+      status: serverStatus.Success,
+    }
   }
 }
 

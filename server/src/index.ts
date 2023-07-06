@@ -4,14 +4,11 @@ import express, { Express } from "express";
 import cors from "cors";
 import helmet from "helmet";
 import compression from "compression";
-import bcrypt from 'bcrypt';
-
-import { loginOrRegisterRouter } from "./routers/loginOrRegisterRouter";
-import { test } from "./routers/test";
 import { main } from "./AppDataSource";
-
+import { loginOrRegisterRouter } from "./routers/loginOrRegisterRouter";
 
 dotenv.config();
+
 const startServer = () => {
   const app: Express = express();
   const port = process.env.PORT;
@@ -22,19 +19,18 @@ const startServer = () => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
-  app.use("/api/v1/auth", loginOrRegisterRouter);
-  app.use("/test", test);
-
+  app.use("/api/v1/auth/", loginOrRegisterRouter);
 
   app.listen(port, () => {
     console.log(`[server]: Server is running at http://localhost:${port}`);
   });
 };
 
-(
-  async () => {
+(async () => {
   try {
     main();
     startServer();
-  } catch (error) { console.error("Error during application initialization:", error);}}
-)();
+  } catch (error) {
+    console.error("Error during application initialization:", error);
+  }
+})();

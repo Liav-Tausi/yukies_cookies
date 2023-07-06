@@ -1,6 +1,5 @@
-import { IsNotEmpty, Matches, IsEmail, IsStrongPassword, IsBoolean, IsMobilePhone } from "class-validator";
+import { IsNotEmpty, Matches, IsEmail, IsStrongPassword, IsBoolean, IsMobilePhone, IsIn } from "class-validator";
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn} from "typeorm"
-
 
 @Entity()
 export class User extends BaseEntity{
@@ -23,11 +22,13 @@ export class User extends BaseEntity{
     @IsMobilePhone('he-IL')
     phoneNumber: string
 
-
     @Column()
     @IsNotEmpty()
     @IsStrongPassword()
     password: string;
+
+    @Column()
+    address: string
 
     @Column()
     @IsBoolean()

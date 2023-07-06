@@ -44,6 +44,10 @@ __decorate([
 ], User.prototype, "password", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], User.prototype, "address", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
     (0, class_validator_1.IsBoolean)(),
     __metadata("design:type", Boolean)
 ], User.prototype, "isStaff", void 0);

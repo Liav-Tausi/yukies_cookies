@@ -15,6 +15,9 @@ const User_1 = require("../../entities/User");
 const validateDAL_1 = require("../../middleware/validateDAL");
 const serverMSG_1 = require("../../enums/serverStatusesEnums/serverMSG");
 dotenv_1.default.config();
+if (!process.env.JWT_SECRET) {
+    throw new Error('JWT_SECRET environment variable is not defined');
+}
 const jwt_secret = process.env.JWT_SECRET;
 const generateAccessToken = (userData) => {
     return jsonwebtoken_1.default.sign({ email: userData.email, password: userData.password }, jwt_secret, { expiresIn: '5m' });
@@ -24,10 +27,9 @@ const generateRefreshToken = (userData) => {
 };
 exports.loginOrRegisterHandler = {
     loginHandler: async (loginData) => {
-        const { password } = loginData;
         const dalResult = await loginOrRegisterDAL_1.loginOrRegisterDAL.loginDAL(loginData);
         if ((0, IUser_1.isIUser)(dalResult.data)) {
-            if (await bcrypt_1.default.compare(password, dalResult.data.password)) {
+            if (await bcrypt_1.default.compare(loginData.password, dalResult.data.password)) {
                 return {
                     status: serverStatus_1.serverStatus.Success,
                     data: { refreshToken: generateRefreshToken(dalResult.data), accessToken: generateAccessToken(dalResult.data) },
@@ -41,12 +43,15 @@ exports.loginOrRegisterHandler = {
                 return { status: serverStatus_1.serverStatus.Unauthorized, data: {}, msg: serverMSG_1.serverMSG.Unauthorized };
             }
         }
+        else {
+            return { status: serverStatus_1.serverStatus.ServerFail, data: {}, msg: serverMSG_1.serverMSG.ServerFail };
+        }
     },
     registerHandler: async (registerData) => {
         const { fullName, email, phoneNumber, password } = registerData;
-        const validateUser = AppDataSource_1.AppDataSource.manager.create(User_1.User, { fullName, email, phoneNumber, password, isStaff: false });
+        const validateUser = AppDataSource_1.AppDataSource.manager.create(User_1.User, { fullName, email, phoneNumber, password: password, isStaff: false });
         const validationResult = await (0, validateDAL_1.validationDAL)(validateUser);
-        if (!validationResult) {
+        if (validationResult.status === serverStatus_1.serverStatus.Success) {
             registerData.password = await bcrypt_1.default.hash(password, 10);
             const dalResult = await loginOrRegisterDAL_1.loginOrRegisterDAL.registerDAL(registerData);
             if (dalResult.status === serverStatus_1.serverStatus.Created && (0, IUser_1.isIUser)(dalResult.data)) {

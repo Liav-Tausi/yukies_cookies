@@ -7,7 +7,7 @@ const serverStatus_1 = require("../../enums/serverStatusesEnums/serverStatus");
 const serverMSG_1 = require("../../enums/serverStatusesEnums/serverMSG");
 exports.loginOrRegisterDAL = {
     loginDAL: async (loginData) => {
-        const { email, phoneNumber, password } = loginData;
+        const { email, phoneNumber } = loginData;
         let checkUser;
         if (email) {
             checkUser = await AppDataSource_1.AppDataSource.manager.findOneBy(User_1.User, { email });

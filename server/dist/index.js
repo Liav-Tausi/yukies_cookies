@@ -9,9 +9,8 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const helmet_1 = __importDefault(require("helmet"));
 const compression_1 = __importDefault(require("compression"));
-const loginOrRegisterRouter_1 = require("./routers/loginOrRegisterRouter");
-const test_1 = require("./routers/test");
 const AppDataSource_1 = require("./AppDataSource");
+const loginOrRegisterRouter_1 = require("./routers/loginOrRegisterRouter");
 dotenv_1.default.config();
 const startServer = () => {
     const app = (0, express_1.default)();
@@ -21,8 +20,7 @@ const startServer = () => {
     app.use((0, compression_1.default)());
     app.use(express_1.default.json());
     app.use(express_1.default.urlencoded({ extended: true }));
-    app.use("/api/v1/auth", loginOrRegisterRouter_1.loginOrRegisterRouter);
-    app.use("/test", test_1.test);
+    app.use("/api/v1/auth/", loginOrRegisterRouter_1.loginOrRegisterRouter);
     app.listen(port, () => {
         console.log(`[server]: Server is running at http://localhost:${port}`);
     });

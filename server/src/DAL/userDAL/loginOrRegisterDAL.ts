@@ -12,8 +12,8 @@ import { validationDAL } from "../../middleware/validateDAL";
 
 export const loginOrRegisterDAL = {
   loginDAL: async (loginData: ILogin): Promise<IServer> => {
-    const { email, phoneNumber, password } = loginData;
-    let checkUser: User;
+    const { email, phoneNumber } = loginData;
+    let checkUser;
     if (email) {
       checkUser = await AppDataSource.manager.findOneBy(User, { email });
     } else {
@@ -27,11 +27,12 @@ export const loginOrRegisterDAL = {
   },
 
   registerDAL: async (registerData: IRegister): Promise<IServer> => {
-    const { fullName, email, phoneNumber, password } = registerData;
+    const { fullName, email, address, phoneNumber, password } = registerData;
     try {
       const newUser = AppDataSource.manager.create(User, {
         fullName: fullName,
         email: email,
+        address: address,
         phoneNumber: phoneNumber,
         password: password,
         isStaff: false

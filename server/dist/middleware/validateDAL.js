@@ -11,6 +11,11 @@ const validationDAL = async (values) => {
             data: validationErrors.map((error) => { return error.property; })
         };
     }
+    else {
+        return {
+            status: serverStatus_1.serverStatus.Success,
+        };
+    }
 };
 exports.validationDAL = validationDAL;
 //# sourceMappingURL=validateDAL.js.map
