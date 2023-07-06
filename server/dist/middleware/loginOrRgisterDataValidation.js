@@ -14,6 +14,7 @@ exports.registerValidation = zod_1.z.object({
     phoneNumber: zod_1.z.string().refine((value) => validator_1.default.isMobilePhone(value, "he-IL"), {
         message: "Invalid israeli phone number"
     }).refine(Boolean, { message: "Israeli phone number is required" }),
+    address: zod_1.z.string(),
     password: zod_1.z.string().regex(/^(?=.*\d.*\d)(?=.*[A-Z]).{8,}$/, {
         message: "Invalid password format!, must have at list 8 characters, 1 uppercase, 2 digits"
     }).refine(Boolean, { message: "Password is required" }),

@@ -5,11 +5,12 @@ const serverStatus_1 = require("../../enums/serverStatusesEnums/serverStatus");
 const serverMSG_1 = require("../../enums/serverStatusesEnums/serverMSG");
 const loginOrRegisterHandler_1 = require("../../handlers/userHandlers/loginOrRegisterHandler");
 const loginOrRgisterDataValidation_1 = require("../../middleware/loginOrRgisterDataValidation");
-const zod_1 = require("zod");
+const zodErrorHandling_1 = require("../../middleware/zodErrorHandling");
 exports.loginOrRegisterController = {
     loginController: async (req, res) => {
         try {
-            const loginData = loginOrRgisterDataValidation_1.loginValidation.parse(req.body);
+            const initialLoginData = req.body;
+            const loginData = loginOrRgisterDataValidation_1.loginValidation.parse(initialLoginData);
             const handlerResult = await loginOrRegisterHandler_1.loginOrRegisterHandler.loginHandler(loginData);
             const serverResultData = handlerResult.data;
             const serverResultStatus = handlerResult.status;
@@ -26,26 +27,14 @@ exports.loginOrRegisterController = {
             });
         }
         catch (error) {
-            console.error(`${serverMSG_1.serverErrorMSG.loginControllerERROR} ${error.stack}`);
-            if (error instanceof zod_1.ZodError) {
-                let validationErrors = [];
-                error.errors.forEach((validationError) => validationErrors.push(validationError.message));
-                res.status(serverStatus_1.serverStatus.RequestFail).json({
-                    status: serverMSG_1.serverMSG.RequestFail,
-                    msg: validationErrors,
-                });
-            }
-            else {
-                res.status(serverStatus_1.serverStatus.ServerFail).json({
-                    status: serverMSG_1.serverMSG.ServerFail,
-                    msg: error.message,
-                });
-            }
+            console.error(error.stack);
+            (0, zodErrorHandling_1.zodErrorHandling)(error, res);
         }
     },
     registerController: async (req, res) => {
         try {
-            const registerData = loginOrRgisterDataValidation_1.registerValidation.parse(req.body);
+            const initialRegisterData = req.body;
+            const registerData = loginOrRgisterDataValidation_1.registerValidation.parse(initialRegisterData);
             const handlerResult = await loginOrRegisterHandler_1.loginOrRegisterHandler.registerHandler(registerData);
             const serverResultData = handlerResult.data;
             const serverResultStatus = handlerResult.status;
@@ -59,21 +48,8 @@ exports.loginOrRegisterController = {
             });
         }
         catch (error) {
-            console.error(`${serverMSG_1.serverErrorMSG.registerControllerERROR} ${error.stack}`);
-            if (error instanceof zod_1.ZodError) {
-                let validationErrors = [];
-                error.errors.forEach((validationError) => validationErrors.push(validationError.message));
-                res.status(serverStatus_1.serverStatus.RequestFail).json({
-                    status: serverMSG_1.serverMSG.RequestFail,
-                    msg: validationErrors,
-                });
-            }
-            else {
-                res.status(serverStatus_1.serverStatus.ServerFail).json({
-                    status: serverMSG_1.serverMSG.ServerFail,
-                    msg: error.message,
-                });
-            }
+            console.error(error.stack);
+            (0, zodErrorHandling_1.zodErrorHandling)(error, res);
         }
     },
 };

@@ -12,7 +12,7 @@ export class Cake extends BaseEntity{
     @IsNotEmpty()
     @IsString()
     @Length(cakeTableEnumConfig.MinLengthName, cakeTableEnumConfig.MaxLengthName)
-    Name: string
+    name: string
 
     @Column()
     @IsNotEmpty()

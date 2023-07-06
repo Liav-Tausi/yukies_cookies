@@ -6,12 +6,13 @@ import { serverErrorMSG, serverMSG } from "../../enums/serverStatusesEnums/serve
 import { loginOrRegisterHandler } from "../../handlers/userHandlers/loginOrRegisterHandler";
 import { IServer } from "../../interfaces/serverInterfaces/IServer";
 import { loginValidation, registerValidation } from "../../middleware/loginOrRgisterDataValidation";
-import { ZodError } from "zod";
+import { zodErrorHandling } from "../../middleware/zodErrorHandling";
 
 export const loginOrRegisterController = {
   loginController: async (req: Request, res: Response): Promise<void> => {
   try {
-    const loginData: any = loginValidation.parse(req.body);
+    const initialLoginData: ILogin = req.body
+    const loginData: any = loginValidation.parse(initialLoginData);
     const handlerResult: IServer = await loginOrRegisterHandler.loginHandler(loginData);
     const serverResultData: any = handlerResult.data;
     const serverResultStatus: number = handlerResult.status;
@@ -30,25 +31,14 @@ export const loginOrRegisterController = {
       msg: handlerResult.msg,
     });
   } catch (error: any) {
-    console.error(`${serverErrorMSG.loginControllerERROR} ${error.stack}`);
-    if (error instanceof ZodError) {
-        let validationErrors: Array<string> = []
-        error.errors.forEach((validationError) => validationErrors.push(validationError.message));
-        res.status(serverStatus.RequestFail).json({
-        status: serverMSG.RequestFail,
-        msg: validationErrors,
-        });
-      } else {
-      res.status(serverStatus.ServerFail).json({
-        status: serverMSG.ServerFail,
-        msg: error.message,
-      });
-     }  
+    console.error(error.stack);
+    zodErrorHandling(error, res)
   }
 },
  registerController: async (req: Request, res: Response): Promise<void> => {
     try {
-      const registerData: any = registerValidation.parse(req.body);
+      const initialRegisterData: IRegister = req.body
+      const registerData: any = registerValidation.parse(initialRegisterData);
       const handlerResult: IServer = await loginOrRegisterHandler.registerHandler(registerData);
       const serverResultData: any = handlerResult.data
       const serverResultStatus: number = handlerResult.status
@@ -64,20 +54,8 @@ export const loginOrRegisterController = {
         msg: handlerResult.msg
       });
     } catch (error: any) {
-      console.error(`${serverErrorMSG.registerControllerERROR} ${error.stack}`);
-      if (error instanceof ZodError) {
-        let validationErrors: Array<string> = []
-        error.errors.forEach((validationError) => validationErrors.push(validationError.message));
-        res.status(serverStatus.RequestFail).json({
-        status: serverMSG.RequestFail,
-        msg: validationErrors,
-        });
-      } else {
-      res.status(serverStatus.ServerFail).json({
-        status: serverMSG.ServerFail,
-        msg: error.message,
-      });
-     }  
+      console.error(error.stack);
+      zodErrorHandling(error, res)
     }
   },
 };

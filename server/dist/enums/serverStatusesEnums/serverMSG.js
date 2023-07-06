@@ -14,7 +14,5 @@ var serverErrorMSG;
 (function (serverErrorMSG) {
     serverErrorMSG["InvalidPassword"] = "Invalid Password";
     serverErrorMSG["InvalidFields"] = "Invalid fields: ";
-    serverErrorMSG["loginControllerERROR"] = "Error in loginController";
-    serverErrorMSG["registerControllerERROR"] = "Error in registerController";
 })(serverErrorMSG = exports.serverErrorMSG || (exports.serverErrorMSG = {}));
 //# sourceMappingURL=serverMSG.js.map

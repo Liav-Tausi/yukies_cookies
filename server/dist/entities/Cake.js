@@ -25,7 +25,7 @@ __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.Length)(cakeTableEnum_1.cakeTableEnumConfig.MinLengthName, cakeTableEnum_1.cakeTableEnumConfig.MaxLengthName),
     __metadata("design:type", String)
-], Cake.prototype, "Name", void 0);
+], Cake.prototype, "name", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     (0, class_validator_1.IsNotEmpty)(),

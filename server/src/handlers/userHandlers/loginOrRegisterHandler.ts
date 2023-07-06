@@ -44,7 +44,7 @@ export const loginOrRegisterHandler = {
         return {status: serverStatus.Unauthorized, data: {}, msg: serverMSG.Unauthorized}
       }
     } else {
-      return {status: serverStatus.ServerFail, data: {}, msg: serverMSG.ServerFail}
+      return {status: serverStatus.NotFound, data: {}, msg: serverMSG.NotFound}
     }
   },
   registerHandler: async (registerData: IRegister): Promise<IServer> => {

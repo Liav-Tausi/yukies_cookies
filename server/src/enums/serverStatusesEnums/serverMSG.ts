@@ -11,7 +11,4 @@ export enum serverMSG {
 export enum serverErrorMSG {
   InvalidPassword = "Invalid Password",
   InvalidFields = "Invalid fields: ",
-  loginControllerERROR = 'Error in loginController',
-  registerControllerERROR = 'Error in registerController'
-
 }

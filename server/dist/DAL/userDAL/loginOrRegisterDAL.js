@@ -23,11 +23,12 @@ exports.loginOrRegisterDAL = {
         }
     },
     registerDAL: async (registerData) => {
-        const { fullName, email, phoneNumber, password } = registerData;
+        const { fullName, email, address, phoneNumber, password } = registerData;
         try {
             const newUser = AppDataSource_1.AppDataSource.manager.create(User_1.User, {
                 fullName: fullName,
                 email: email,
+                address: address,
                 phoneNumber: phoneNumber,
                 password: password,
                 isStaff: false

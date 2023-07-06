@@ -7,6 +7,7 @@ var userTableEnum;
     userTableEnum["Email"] = "Email";
     userTableEnum["FullName"] = "Full name";
     userTableEnum["phoneNumber"] = "Phone Number";
+    userTableEnum["address"] = "address";
     userTableEnum["Password"] = "Password";
     userTableEnum["Staff"] = "Staff";
 })(userTableEnum = exports.userTableEnum || (exports.userTableEnum = {}));

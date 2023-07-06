@@ -44,12 +44,12 @@ exports.loginOrRegisterHandler = {
             }
         }
         else {
-            return { status: serverStatus_1.serverStatus.ServerFail, data: {}, msg: serverMSG_1.serverMSG.ServerFail };
+            return { status: serverStatus_1.serverStatus.NotFound, data: {}, msg: serverMSG_1.serverMSG.NotFound };
         }
     },
     registerHandler: async (registerData) => {
-        const { fullName, email, phoneNumber, password } = registerData;
-        const validateUser = AppDataSource_1.AppDataSource.manager.create(User_1.User, { fullName, email, phoneNumber, password: password, isStaff: false });
+        const { fullName, email, address, phoneNumber, password } = registerData;
+        const validateUser = AppDataSource_1.AppDataSource.manager.create(User_1.User, { fullName, email, phoneNumber, password, address, isStaff: false });
         const validationResult = await (0, validateDAL_1.validationDAL)(validateUser);
         if (validationResult.status === serverStatus_1.serverStatus.Success) {
             registerData.password = await bcrypt_1.default.hash(password, 10);
