@@ -8,7 +8,7 @@ export class Cake extends BaseEntity{
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column()
+    @Column({ unique: true })
     @IsNotEmpty()
     @IsString()
     @Length(cakeTableEnumConfig.MinLengthName, cakeTableEnumConfig.MaxLengthName)

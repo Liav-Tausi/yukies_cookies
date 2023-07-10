@@ -1,59 +1,97 @@
 import { Request, Response } from "express";
 import { catalogHandler } from "../../handlers/catalogHandlers/catalogHandler";
-import { catalogValidation } from "../../middleware/catalogValidation";
+import { catalogValidation } from "../../middleware/catalogVaidations/catalogValidation";
 import { zodErrorHandling } from "../../middleware/zodErrorHandling";
 import { ICake } from "../../interfaces/cakeInterfaces/ICake";
 import { serverStatus } from "../../enums/serverStatusesEnums/serverStatus";
-import { serverErrorMSG } from "../../enums/serverStatusesEnums/serverMSG";
+import { IServer } from "../../interfaces/serverInterfaces/IServer";
+import { catalogOptionalValidation } from "../../middleware/catalogVaidations/catalogOptionalValidation";
+import { ISpacCake } from "../../interfaces/cakeInterfaces/ISpecCake";
 
 export const catalogController = {
-
   addItemController: async (req: Request, res: Response): Promise<void> => {
     try {
       const initialCakeData: ICake = req.body
       const catalogData: any = catalogValidation.parse(initialCakeData);
       const handlerResult = await catalogHandler.addItemHandler(catalogData);
-      const serverResultData: any = handlerResult.data;
       const serverResultStatus: number = handlerResult.status;
 
       res.status(
         serverResultStatus === serverStatus.Created
         ? serverStatus.Created 
         : serverStatus.RequestFail
-      ).json({
-        status: serverResultStatus ? serverResultStatus : serverStatus.RequestFail,
-        data: serverResultData.refreshToken && serverResultData.accessToken ?
-        serverResultData : serverResultData.data ? serverErrorMSG.InvalidFields + serverResultData.data : serverResultData,
-        msg: handlerResult.msg
-      });
+      ).json(handlerResult);
     } catch (error: any) {
       console.error(error.stack);
       zodErrorHandling(error, res)
     }
-  }
-  // getItemController: async (req: Request, res: Response): Promise<void> => {
-  //   try {
-  //   const handlerResult = await catalogHandler.getItemHandler();
-  //   } catch (error: any) {
-  //     console.error(error.stack);
-  //     zodErrorHandling(error, res)
-  //   }
-  // },
-  // patchItemController: async (req: Request, res: Response): Promise<void> => {
-  //   try {
-  //   const handlerResult = await catalogHandler.patchItemHandler();
-  //   } catch (error: any) {
-  //     console.error(error.stack);
-  //     zodErrorHandling(error, res)
-  //   }
-  // },
-  // deleteItemController: async (req: Request, res: Response): Promise<void> => {
-  //   try {
-  //   const handlerResult = await catalogHandler.deleteItemHandler();
-  //   } catch (error: any) {
-  //     console.error(error.stack);
-  //     zodErrorHandling(error, res)
-  //   }
-  // },
+  },
+  getItemController: async (req: Request, res: Response): Promise<void> => {
+    try {
+      const listOrGet = req.query.first
+      const { name, shortDescription, longDescription, imageUrl } = req.query
+      const price = req.query.price !== undefined ? Number(req.query.price) : undefined;
+      const catalogData: any = catalogOptionalValidation.parse({
+        name, shortDescription, longDescription, price, imageUrl
+      });
+      if (listOrGet) {
+        const handlerResult: IServer = await catalogHandler.getItemHandler(catalogData);
+        res.status(
+          handlerResult.status === serverStatus.Success
+          ? serverStatus.Success 
+          : serverStatus.RequestFail
+        ).json(handlerResult);
+      } else {
+        const handlerResult: IServer = await catalogHandler.listItemHandler(catalogData);
+        res.status(
+          handlerResult.status === serverStatus.Success
+          ? serverStatus.Success 
+          : serverStatus.RequestFail
+        ).json(handlerResult);
+      }
+    } catch (error: any) {
+      console.error(error.stack);
+      zodErrorHandling(error, res)
+    }
+  },
+  patchItemController: async (req: Request, res: Response): Promise<void> => {
+    try {
+      const initialCakeData: ISpacCake = req.body
+      const cakeId: number = Number(req.query.cake)
+      const catalogData: any = catalogOptionalValidation.parse(initialCakeData);
+      const handlerResult = await catalogHandler.patchItemHandler(catalogData, cakeId);
+      const serverResultStatus: number = handlerResult.status
 
+      res.status(
+        serverResultStatus === serverStatus.Updated
+        ? serverStatus.Updated 
+        : serverStatus.RequestFail
+      ).json(handlerResult);
+
+    } catch (error: any) {
+      console.error(error.stack);
+      zodErrorHandling(error, res)
+    }
+  },
+  deleteItemController: async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { name, shortDescription, longDescription, imageUrl } = req.query
+      const price = req.query.price !== undefined ? Number(req.query.price) : undefined;
+      const catalogData: any = catalogOptionalValidation.parse({
+        name, shortDescription, longDescription, price, imageUrl
+      });
+      const handlerResult = await catalogHandler.deleteItemHandler(catalogData);
+      const serverResultStatus: number = handlerResult.status
+
+      res.status(
+        serverResultStatus === serverStatus.Deleted
+        ? serverStatus.Deleted 
+        : serverStatus.RequestFail
+      ).json(handlerResult);
+
+    } catch (error: any) {
+      console.error(error.stack);
+      zodErrorHandling(error, res)
+    }
+  },
 }

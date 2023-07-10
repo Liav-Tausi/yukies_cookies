@@ -6,7 +6,8 @@ import helmet from "helmet";
 import compression from "compression";
 import { main } from "./AppDataSource";
 import { loginOrRegisterRouter } from "./routers/userRouters/loginOrRegisterRouter";
-import { catalogRouter } from "./routers/catalogRouter";
+import { catalogRouter } from "./routers/catalogRouters/catalogRouter";
+import { cartRouter } from "./routers/cartRouters/cartRouter";
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ const startServer = () => {
 
   app.use("/api/v1/shop/auth/", loginOrRegisterRouter);
   app.use("/api/v1/shop/catalog/", catalogRouter);
+  app.use("/api/v1/shop/cart/", cartRouter)
 
   app.listen(port, () => {
     console.log(`[server]: Server is running at http://localhost:${port}`);

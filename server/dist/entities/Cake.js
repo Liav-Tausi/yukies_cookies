@@ -20,7 +20,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Cake.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ unique: true }),
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.Length)(cakeTableEnum_1.cakeTableEnumConfig.MinLengthName, cakeTableEnum_1.cakeTableEnumConfig.MaxLengthName),

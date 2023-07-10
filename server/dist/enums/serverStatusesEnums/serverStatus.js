@@ -5,6 +5,8 @@ var serverStatus;
 (function (serverStatus) {
     serverStatus[serverStatus["Success"] = 200] = "Success";
     serverStatus[serverStatus["Created"] = 201] = "Created";
+    serverStatus[serverStatus["Updated"] = 204] = "Updated";
+    serverStatus[serverStatus["Deleted"] = 204] = "Deleted";
     serverStatus[serverStatus["RequestFail"] = 400] = "RequestFail";
     serverStatus[serverStatus["Unauthorized"] = 401] = "Unauthorized";
     serverStatus[serverStatus["NotFound"] = 404] = "NotFound";

@@ -5,6 +5,8 @@ var serverMSG;
 (function (serverMSG) {
     serverMSG["Success"] = "success";
     serverMSG["Created"] = "created";
+    serverMSG["Updated"] = "updated";
+    serverMSG["Deleted"] = "deleted";
     serverMSG["RequestFail"] = "request failed";
     serverMSG["NotFound"] = "not found";
     serverMSG["ServerFail"] = "server fail";

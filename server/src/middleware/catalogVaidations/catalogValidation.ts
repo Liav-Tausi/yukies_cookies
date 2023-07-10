@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { cakeTableEnumConfig } from "../enums/ORMEnums/cakeTableEnum";
+import { cakeTableEnumConfig } from "../../enums/ORMEnums/cakeTableEnum";
 
 export const catalogValidation = z.object({
 

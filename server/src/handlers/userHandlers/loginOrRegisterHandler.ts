@@ -35,9 +35,9 @@ export const loginOrRegisterHandler = {
     if (isIUser(dalResult.data)) {
       if (await bcrypt.compare(loginData.password, dalResult.data.password)) {
         return {
-          status: serverStatus.Success,
+          status: dalResult.status,
           data: {refreshToken: generateRefreshToken(dalResult.data), accessToken: generateAccessToken(dalResult.data)},
-          msg: serverMSG.Success}
+          msg: dalResult.msg}
       } else if (dalResult.status === serverStatus.NotFound) {
         return {status: serverStatus.NotFound, data: {}, msg: serverMSG.NotFound}
       } else {
@@ -57,7 +57,7 @@ export const loginOrRegisterHandler = {
         const dalResult: IServer = await loginOrRegisterDAL.registerDAL(registerData)
         if (dalResult.status === serverStatus.Created && isIUser(dalResult.data)) {
           return {
-            status: serverStatus.Created, 
+            status: dalResult.status, 
             data: {refreshToken: generateRefreshToken(dalResult.data), accessToken: generateAccessToken(dalResult.data)},
             msg: dalResult.msg
           }

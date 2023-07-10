@@ -11,7 +11,8 @@ const helmet_1 = __importDefault(require("helmet"));
 const compression_1 = __importDefault(require("compression"));
 const AppDataSource_1 = require("./AppDataSource");
 const loginOrRegisterRouter_1 = require("./routers/userRouters/loginOrRegisterRouter");
-const catalogRouter_1 = require("./routers/catalogRouter");
+const catalogRouter_1 = require("./routers/catalogRouters/catalogRouter");
+const cartRouter_1 = require("./routers/cartRouters/cartRouter");
 dotenv_1.default.config();
 const startServer = () => {
     const app = (0, express_1.default)();
@@ -23,6 +24,7 @@ const startServer = () => {
     app.use(express_1.default.urlencoded({ extended: true }));
     app.use("/api/v1/shop/auth/", loginOrRegisterRouter_1.loginOrRegisterRouter);
     app.use("/api/v1/shop/catalog/", catalogRouter_1.catalogRouter);
+    app.use("/api/v1/shop/cart/", cartRouter_1.cartRouter);
     app.listen(port, () => {
         console.log(`[server]: Server is running at http://localhost:${port}`);
     });

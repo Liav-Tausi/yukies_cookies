@@ -1,3 +1,7 @@
 export interface ICart {
-  user_id: number
+  user: number
+}
+
+export const isICart = (obj: any): obj is ICart => {
+  return obj && obj.user;
 }
