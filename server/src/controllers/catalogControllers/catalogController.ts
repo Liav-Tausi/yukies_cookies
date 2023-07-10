@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import { catalogHandler } from "../../handlers/catalogHandlers/catalogHandler";
-import { catalogValidation } from "../../middleware/catalogVaidations/catalogValidation";
+import { catalogValidation } from "../../middleware/catalogValidations/catalogValidation";
 import { zodErrorHandling } from "../../middleware/zodErrorHandling";
 import { ICake } from "../../interfaces/cakeInterfaces/ICake";
 import { serverStatus } from "../../enums/serverStatusesEnums/serverStatus";
 import { IServer } from "../../interfaces/serverInterfaces/IServer";
-import { catalogOptionalValidation } from "../../middleware/catalogVaidations/catalogOptionalValidation";
+import { catalogOptionalValidation } from "../../middleware/catalogValidations/catalogOptionalValidation";
 import { ISpecCake } from "../../interfaces/cakeInterfaces/ISpecCake";
 
 export const catalogController = {
