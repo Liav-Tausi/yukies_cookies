@@ -29,14 +29,16 @@ export const cartController = {
   getItemController: async (req: Request, res: Response): Promise<void> => {
     try {
       const listOrGet = req.query.first
-      const user = Number(req.query.user)
-      const cartData: any = cartOptionalValidation.parse({user});
+      const id = req.query.user !== undefined ? Number(req.query.user) : undefined;
+      const cartData: any = cartOptionalValidation.parse({id});
 
       if (listOrGet) {
         const handlerResult: IServer = await cartHandler.getItemHandler(cartData);
         res.status(
           handlerResult.status === serverStatus.Success
           ? serverStatus.Success 
+          : handlerResult.status === serverStatus.NotFound
+          ? serverStatus.NotFound 
           : serverStatus.RequestFail
         ).json(handlerResult);
       } else {
@@ -44,6 +46,8 @@ export const cartController = {
         res.status(
           handlerResult.status === serverStatus.Success
           ? serverStatus.Success 
+          : handlerResult.status === serverStatus.NotFound
+          ? serverStatus.NotFound 
           : serverStatus.RequestFail
         ).json(handlerResult);
       }
@@ -73,8 +77,8 @@ export const cartController = {
   },
   deleteItemController: async (req: Request, res: Response): Promise<void> => {
     try {
-      const user = Number(req.query.user)
-      const cartData: any = cartOptionalValidation.parse({user});
+      const id = req.query.user !== undefined ? Number(req.query.user) : undefined;
+      const cartData: any = cartOptionalValidation.parse({id});
       const handlerResult = await cartHandler.deleteItemHandler(cartData);
       const serverResultStatus: number = handlerResult.status
 

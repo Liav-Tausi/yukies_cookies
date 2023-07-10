@@ -6,7 +6,7 @@ import { ICake } from "../../interfaces/cakeInterfaces/ICake";
 import { serverStatus } from "../../enums/serverStatusesEnums/serverStatus";
 import { IServer } from "../../interfaces/serverInterfaces/IServer";
 import { catalogOptionalValidation } from "../../middleware/catalogVaidations/catalogOptionalValidation";
-import { ISpacCake } from "../../interfaces/cakeInterfaces/ISpecCake";
+import { ISpecCake } from "../../interfaces/cakeInterfaces/ISpecCake";
 
 export const catalogController = {
   addItemController: async (req: Request, res: Response): Promise<void> => {
@@ -39,6 +39,8 @@ export const catalogController = {
         res.status(
           handlerResult.status === serverStatus.Success
           ? serverStatus.Success 
+          : handlerResult.status === serverStatus.NotFound
+          ? serverStatus.NotFound 
           : serverStatus.RequestFail
         ).json(handlerResult);
       } else {
@@ -46,6 +48,8 @@ export const catalogController = {
         res.status(
           handlerResult.status === serverStatus.Success
           ? serverStatus.Success 
+          : handlerResult.status === serverStatus.NotFound
+          ? serverStatus.NotFound 
           : serverStatus.RequestFail
         ).json(handlerResult);
       }
@@ -56,7 +60,7 @@ export const catalogController = {
   },
   patchItemController: async (req: Request, res: Response): Promise<void> => {
     try {
-      const initialCakeData: ISpacCake = req.body
+      const initialCakeData: ISpecCake = req.body
       const cakeId: number = Number(req.query.cake)
       const catalogData: any = catalogOptionalValidation.parse(initialCakeData);
       const handlerResult = await catalogHandler.patchItemHandler(catalogData, cakeId);

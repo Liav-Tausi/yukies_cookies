@@ -8,12 +8,14 @@ import { main } from "./AppDataSource";
 import { loginOrRegisterRouter } from "./routers/userRouters/loginOrRegisterRouter";
 import { catalogRouter } from "./routers/catalogRouters/catalogRouter";
 import { cartRouter } from "./routers/cartRouters/cartRouter";
+import { userRouter } from "./routers/userRouters/userRouter";
 
 dotenv.config();
 
 const startServer = () => {
   const app: Express = express();
   const port = process.env.PORT;
+  const baseRoute = process.env.BASE_ROUTE
 
   app.use(cors());
   app.use(helmet());
@@ -21,9 +23,10 @@ const startServer = () => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
-  app.use("/api/v1/shop/auth/", loginOrRegisterRouter);
-  app.use("/api/v1/shop/catalog/", catalogRouter);
-  app.use("/api/v1/shop/cart/", cartRouter)
+  app.use(baseRoute + "auth/", loginOrRegisterRouter);
+  app.use(baseRoute + "user/", userRouter);
+  app.use(baseRoute + "catalog/", catalogRouter);
+  app.use(baseRoute + "cart/", cartRouter);
 
   app.listen(port, () => {
     console.log(`[server]: Server is running at http://localhost:${port}`);

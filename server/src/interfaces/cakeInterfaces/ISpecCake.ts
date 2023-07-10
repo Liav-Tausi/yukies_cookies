@@ -1,4 +1,4 @@
-export interface ISpacCake {
+export interface ISpecCake {
     name?: string
     shortDescription?: string
     longDescription?: string
@@ -6,7 +6,7 @@ export interface ISpacCake {
     imageUrl?: string
 }
 
-export const isISpacCake = (obj: any): obj is ISpacCake => {
+export const isISpecCake = (obj: any): obj is ISpecCake => {
   return (
     obj &&
     (obj.name !== undefined ||

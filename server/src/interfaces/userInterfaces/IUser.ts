@@ -4,10 +4,6 @@ export default interface IUser {
   address: string
   phoneNumber: string
   password: string
-  isStaff: boolean
-  id: number
-  createdAt: Date
-  updatedAt: Date
 }
 
 export const isIUser = (obj: any): obj is IUser => {

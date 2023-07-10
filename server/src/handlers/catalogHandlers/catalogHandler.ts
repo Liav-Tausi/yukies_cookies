@@ -4,7 +4,7 @@ import { Cake } from "../../entities/Cake";
 import { serverMSG } from "../../enums/serverStatusesEnums/serverMSG";
 import { serverStatus } from "../../enums/serverStatusesEnums/serverStatus";
 import { ICake, isICake } from "../../interfaces/cakeInterfaces/ICake";
-import { ISpacCake, isISpacCake } from "../../interfaces/cakeInterfaces/ISpecCake";
+import { ISpecCake, isISpecCake } from "../../interfaces/cakeInterfaces/ISpecCake";
 import { IServer } from "../../interfaces/serverInterfaces/IServer";
 import { validationDAL } from "../../middleware/validateDAL";
 
@@ -31,11 +31,11 @@ export const catalogHandler = {
        return validationResult
     }
   },
-  getItemHandler: async (getItemData: ISpacCake): Promise<IServer> => {
+  getItemHandler: async (getItemData: ISpecCake): Promise<IServer> => {
     const validationResult = await validationDAL(getItemData)
     if (validationResult.status === serverStatus.Success ) {
       const dalResult: IServer = await catalogDAL.getItemDAL(getItemData);
-      if (dalResult.status === serverStatus.Success && isISpacCake(dalResult.data["cake"])) {
+      if (dalResult.status === serverStatus.Success && isISpecCake(dalResult.data["cake"])) {
           return dalResult
       } else {
           return {
@@ -48,7 +48,7 @@ export const catalogHandler = {
        return validationResult
     }
   },
-  listItemHandler: async (listItemData: ISpacCake): Promise<IServer> => {
+  listItemHandler: async (listItemData: ISpecCake): Promise<IServer> => {
   const validationResult = await validationDAL(listItemData);
   if (validationResult.status === serverStatus.Success) {
     const dalResult: IServer = await catalogDAL.listItemDAL(listItemData);
@@ -78,11 +78,11 @@ export const catalogHandler = {
     return validationResult
   }
 },
-  patchItemHandler: async (patchItemData: ISpacCake, cakeId: number): Promise<IServer> => {
+  patchItemHandler: async (patchItemData: ISpecCake, cakeId: number): Promise<IServer> => {
     const validationResult = await validationDAL(patchItemData)
     if (validationResult.status === serverStatus.Success) {
       const dalResult: IServer = await catalogDAL.patchItemDAL(patchItemData, cakeId);
-      if (dalResult.status === serverStatus.Updated && isISpacCake(dalResult.data["cake"])) {
+      if (dalResult.status === serverStatus.Updated && isISpecCake(dalResult.data["cake"])) {
           return dalResult
       } else {
           return {
@@ -95,11 +95,11 @@ export const catalogHandler = {
        return validationResult
     }
   },
-  deleteItemHandler: async (deleteItemData: ISpacCake): Promise<IServer> => {
+  deleteItemHandler: async (deleteItemData: ISpecCake): Promise<IServer> => {
     const validationResult = await validationDAL(deleteItemData)
     if (validationResult.status === serverStatus.Success ) {
       const dalResult: IServer = await catalogDAL.deleteItemDAL(deleteItemData);
-      if (dalResult.status === serverStatus.Deleted && isISpacCake(dalResult.data["cake"])) {
+      if (dalResult.status === serverStatus.Deleted && isISpecCake(dalResult.data["cake"])) {
           return dalResult
       } else {
           return {

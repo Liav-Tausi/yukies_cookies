@@ -34,13 +34,17 @@ exports.catalogController = {
                 const handlerResult = await catalogHandler_1.catalogHandler.getItemHandler(catalogData);
                 res.status(handlerResult.status === serverStatus_1.serverStatus.Success
                     ? serverStatus_1.serverStatus.Success
-                    : serverStatus_1.serverStatus.RequestFail).json(handlerResult);
+                    : handlerResult.status === serverStatus_1.serverStatus.NotFound
+                        ? serverStatus_1.serverStatus.NotFound
+                        : serverStatus_1.serverStatus.RequestFail).json(handlerResult);
             }
             else {
                 const handlerResult = await catalogHandler_1.catalogHandler.listItemHandler(catalogData);
                 res.status(handlerResult.status === serverStatus_1.serverStatus.Success
                     ? serverStatus_1.serverStatus.Success
-                    : serverStatus_1.serverStatus.RequestFail).json(handlerResult);
+                    : handlerResult.status === serverStatus_1.serverStatus.NotFound
+                        ? serverStatus_1.serverStatus.NotFound
+                        : serverStatus_1.serverStatus.RequestFail).json(handlerResult);
             }
         }
         catch (error) {

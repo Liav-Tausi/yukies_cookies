@@ -38,7 +38,7 @@ exports.catalogHandler = {
         const validationResult = await (0, validateDAL_1.validationDAL)(getItemData);
         if (validationResult.status === serverStatus_1.serverStatus.Success) {
             const dalResult = await catalogDAL_1.catalogDAL.getItemDAL(getItemData);
-            if (dalResult.status === serverStatus_1.serverStatus.Success && (0, ISpecCake_1.isISpacCake)(dalResult.data["cake"])) {
+            if (dalResult.status === serverStatus_1.serverStatus.Success && (0, ISpecCake_1.isISpecCake)(dalResult.data["cake"])) {
                 return dalResult;
             }
             else {
@@ -90,7 +90,7 @@ exports.catalogHandler = {
         const validationResult = await (0, validateDAL_1.validationDAL)(patchItemData);
         if (validationResult.status === serverStatus_1.serverStatus.Success) {
             const dalResult = await catalogDAL_1.catalogDAL.patchItemDAL(patchItemData, cakeId);
-            if (dalResult.status === serverStatus_1.serverStatus.Updated && (0, ISpecCake_1.isISpacCake)(dalResult.data["cake"])) {
+            if (dalResult.status === serverStatus_1.serverStatus.Updated && (0, ISpecCake_1.isISpecCake)(dalResult.data["cake"])) {
                 return dalResult;
             }
             else {
@@ -109,7 +109,7 @@ exports.catalogHandler = {
         const validationResult = await (0, validateDAL_1.validationDAL)(deleteItemData);
         if (validationResult.status === serverStatus_1.serverStatus.Success) {
             const dalResult = await catalogDAL_1.catalogDAL.deleteItemDAL(deleteItemData);
-            if (dalResult.status === serverStatus_1.serverStatus.Deleted && (0, ISpecCake_1.isISpacCake)(dalResult.data["cake"])) {
+            if (dalResult.status === serverStatus_1.serverStatus.Deleted && (0, ISpecCake_1.isISpecCake)(dalResult.data["cake"])) {
                 return dalResult;
             }
             else {

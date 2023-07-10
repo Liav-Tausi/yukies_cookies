@@ -4,7 +4,7 @@ import { Cake } from "../../entities/Cake";
 import { serverMSG } from "../../enums/serverStatusesEnums/serverMSG";
 import { serverStatus } from "../../enums/serverStatusesEnums/serverStatus";
 import { ICake, isICake } from "../../interfaces/cakeInterfaces/ICake";
-import { ISpacCake } from "../../interfaces/cakeInterfaces/ISpecCake";
+import { ISpecCake } from "../../interfaces/cakeInterfaces/ISpecCake";
 import { IServer } from "../../interfaces/serverInterfaces/IServer";
 
 export const catalogDAL = {
@@ -44,7 +44,7 @@ export const catalogDAL = {
       };
     }
   },
-  getItemDAL: async (getItemData: ISpacCake): Promise<IServer> => {
+  getItemDAL: async (getItemData: ISpecCake): Promise<IServer> => {
     try {
       const cake: Cake = await AppDataSource.manager.findOneBy(Cake, getItemData);
       if (cake) {
@@ -71,7 +71,7 @@ export const catalogDAL = {
       };
     }
   },
-  listItemDAL: async (getItemData: ISpacCake): Promise<IServer> => {
+  listItemDAL: async (getItemData: ISpecCake): Promise<IServer> => {
     try {
       const cakes: Cake[] = await AppDataSource.manager.findBy(Cake, getItemData);
       if (cakes.some(cake => isICake(cake))) {
@@ -98,7 +98,7 @@ export const catalogDAL = {
       };
     }
   },
-  patchItemDAL: async (patchItemData: ISpacCake, cakeId: number): Promise<IServer> => {
+  patchItemDAL: async (patchItemData: ISpecCake, cakeId: number): Promise<IServer> => {
     try {
       const cake: UpdateResult = await AppDataSource.manager.update(Cake, cakeId, patchItemData);
       if (cake) {
@@ -125,7 +125,7 @@ export const catalogDAL = {
       };
     }
   },
-  deleteItemDAL: async (deleteItemData: ISpacCake): Promise<IServer> => {
+  deleteItemDAL: async (deleteItemData: ISpecCake): Promise<IServer> => {
     try {
       const cake: DeleteResult = await AppDataSource.manager.delete(Cake, deleteItemData);
       if (cake) {

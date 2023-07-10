@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isISpacCake = void 0;
-const isISpacCake = (obj) => {
+exports.isISpecCake = void 0;
+const isISpecCake = (obj) => {
     return (obj &&
         (obj.name !== undefined ||
             obj.shortDescription !== undefined ||
@@ -9,5 +9,5 @@ const isISpacCake = (obj) => {
             obj.price !== undefined ||
             obj.imageUrl !== undefined));
 };
-exports.isISpacCake = isISpacCake;
+exports.isISpecCake = isISpecCake;
 //# sourceMappingURL=ISpecCake.js.map
