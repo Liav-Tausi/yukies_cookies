@@ -2,10 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.catalogController = void 0;
 const catalogHandler_1 = require("../../handlers/catalogHandlers/catalogHandler");
-const catalogValidation_1 = require("../../middleware/catalogVaidations/catalogValidation");
+const catalogValidation_1 = require("../../middleware/catalogValidations/catalogValidation");
 const zodErrorHandling_1 = require("../../middleware/zodErrorHandling");
 const serverStatus_1 = require("../../enums/serverStatusesEnums/serverStatus");
-const catalogOptionalValidation_1 = require("../../middleware/catalogVaidations/catalogOptionalValidation");
+const catalogOptionalValidation_1 = require("../../middleware/catalogValidations/catalogOptionalValidation");
 exports.catalogController = {
     addItemController: async (req, res) => {
         try {
