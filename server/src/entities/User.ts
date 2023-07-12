@@ -1,5 +1,6 @@
-import { IsNotEmpty, Matches, IsEmail, IsStrongPassword, IsBoolean, IsMobilePhone, IsIn } from "class-validator";
+import { IsNotEmpty, Matches, IsEmail, IsStrongPassword, IsBoolean, IsMobilePhone, IsIn, Min, Max } from "class-validator";
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn} from "typeorm"
+import { userTableEnumConfig } from "../enums/ORMEnums/userTableEnum";
 
 @Entity()
 export class User extends BaseEntity{
@@ -28,6 +29,8 @@ export class User extends BaseEntity{
     password: string;
 
     @Column()
+    @Min(userTableEnumConfig.MinAddressLength)
+    @Max(userTableEnumConfig.MaxAddressLength)
     address: string
 
     @Column()

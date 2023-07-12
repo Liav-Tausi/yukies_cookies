@@ -12,8 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.OrderItems = void 0;
 const typeorm_1 = require("typeorm");
 const class_validator_1 = require("class-validator");
-const User_1 = require("./User");
 const orderItemTableEnum_1 = require("../enums/ORMEnums/orderItemTableEnum");
+const Order_1 = require("./Order");
 let OrderItems = class OrderItems extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -21,11 +21,11 @@ __decorate([
     __metadata("design:type", Number)
 ], OrderItems.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => User_1.User),
+    (0, typeorm_1.ManyToOne)(() => Order_1.Order),
     (0, typeorm_1.JoinColumn)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Number)
-], OrderItems.prototype, "user", void 0);
+], OrderItems.prototype, "order", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     (0, class_validator_1.IsNotEmpty)(),

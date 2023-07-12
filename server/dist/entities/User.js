@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const class_validator_1 = require("class-validator");
 const typeorm_1 = require("typeorm");
+const userTableEnum_1 = require("../enums/ORMEnums/userTableEnum");
 let User = class User extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -44,6 +45,8 @@ __decorate([
 ], User.prototype, "password", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
+    (0, class_validator_1.Min)(userTableEnum_1.userTableEnumConfig.MinAddressLength),
+    (0, class_validator_1.Max)(userTableEnum_1.userTableEnumConfig.MaxAddressLength),
     __metadata("design:type", String)
 ], User.prototype, "address", void 0);
 __decorate([

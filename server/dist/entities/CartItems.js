@@ -12,9 +12,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CartItems = void 0;
 const typeorm_1 = require("typeorm");
 const class_validator_1 = require("class-validator");
-const Order_1 = require("./Order");
 const Cake_1 = require("./Cake");
 const cartItemsTableEnum_1 = require("../enums/ORMEnums/cartItemsTableEnum");
+const Cart_1 = require("./Cart");
 let CartItems = class CartItems extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -22,11 +22,11 @@ __decorate([
     __metadata("design:type", Number)
 ], CartItems.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => Order_1.Order),
+    (0, typeorm_1.ManyToOne)(() => Cart_1.Cart),
     (0, typeorm_1.JoinColumn)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Number)
-], CartItems.prototype, "order", void 0);
+], CartItems.prototype, "cart", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => Cake_1.Cake),
     (0, typeorm_1.JoinColumn)(),

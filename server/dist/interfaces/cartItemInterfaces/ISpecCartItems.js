@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isICartItem = void 0;
-const isICartItem = (obj) => {
+exports.isISpecCartItems = void 0;
+const isISpecCartItems = (obj) => {
     return (obj && (obj.cart !== undefined || obj.cake !== undefined || obj.quantity !== undefined));
 };
-exports.isICartItem = isICartItem;
-//# sourceMappingURL=ICartItem.js.map
+exports.isISpecCartItems = isISpecCartItems;
+//# sourceMappingURL=ISpecCartItems.js.map

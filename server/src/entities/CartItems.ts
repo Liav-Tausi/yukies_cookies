@@ -1,8 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from "typeorm"
 import { IsNotEmpty, IsNumber, Min, Max } from "class-validator";
-import { Order } from "./Order";
 import { Cake } from "./Cake";
 import { cartItemsTableEnumConfig } from "../enums/ORMEnums/cartItemsTableEnum";
+import { Cart } from "./Cart";
 
 
 @Entity()
@@ -11,10 +11,10 @@ export class CartItems extends BaseEntity{
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(() => Order)
+    @ManyToOne(() => Cart)
     @JoinColumn()
     @IsNotEmpty()
-    order: number;
+    cart: number;
 
     @ManyToOne(() => Cake)
     @JoinColumn()

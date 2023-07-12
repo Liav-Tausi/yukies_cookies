@@ -3,7 +3,7 @@ import { IServer } from "../../interfaces/serverInterfaces/IServer";
 import { serverStatus } from "../../enums/serverStatusesEnums/serverStatus";
 import { zodErrorHandling } from "../../middleware/zodErrorHandling";
 import { userOptionalValidation } from "../../middleware/userValidations/userOptionalValidation";
-import ISpecUser from "../../interfaces/userInterfaces/ISpecUser";
+import { ISpecUser } from "../../interfaces/userInterfaces/ISpecUser";
 import { userHandler } from "../../handlers/userHandlers/userHandler";
 
 export const userController = {

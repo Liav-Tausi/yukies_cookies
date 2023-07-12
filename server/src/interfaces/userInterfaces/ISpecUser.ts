@@ -1,4 +1,4 @@
-export default interface ISpecUser {
+export interface ISpecUser {
   fullName: string
   email: string
   phoneNumber: string

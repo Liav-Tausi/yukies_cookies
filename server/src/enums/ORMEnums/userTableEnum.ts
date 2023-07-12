@@ -18,4 +18,7 @@ export enum userTableEnumMSG {
   Staff = 'Staff',
 }
 
-
+export enum userTableEnumConfig {
+  MinAddressLength = 1,
+  MaxAddressLength = 64
+}

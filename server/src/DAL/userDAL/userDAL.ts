@@ -4,7 +4,7 @@ import { serverMSG } from "../../enums/serverStatusesEnums/serverMSG";
 import { serverStatus } from "../../enums/serverStatusesEnums/serverStatus";
 import { IServer } from "../../interfaces/serverInterfaces/IServer";
 import { User } from "../../entities/User";
-import ISpecUser from "../../interfaces/userInterfaces/ISpecUser";
+import { ISpecUser } from "../../interfaces/userInterfaces/ISpecUser";
 import { isIUser } from "../../interfaces/userInterfaces/IUser";
 
 export const userDAL = {

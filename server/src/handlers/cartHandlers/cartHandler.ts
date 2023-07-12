@@ -51,17 +51,24 @@ export const cartHandler = {
     }
   },
   listItemHandler: async (listItemData: ISpecCart): Promise<IServer> => {
-  const validationResult = await validationDAL(listItemData);
-  if (validationResult.status === serverStatus.Success) {
-    const dalResult: IServer = await cartDAL.listItemDAL(listItemData);
-    if (dalResult.status === serverStatus.Success) {
-      const carts = dalResult.data["carts"];
-      if (Array.isArray(carts)) {
-        return {
-          status: serverStatus.Success,
-          data: { carts: carts },
-          msg: serverMSG.Success
-        };
+    const validationResult = await validationDAL(listItemData);
+    if (validationResult.status === serverStatus.Success) {
+      const dalResult: IServer = await cartDAL.listItemDAL(listItemData);
+      if (dalResult.status === serverStatus.Success) {
+        const carts = dalResult.data["carts"];
+        if (Array.isArray(carts)) {
+          return {
+            status: serverStatus.Success,
+            data: { carts: carts },
+            msg: serverMSG.Success
+          };
+        } else {
+          return {
+            status: serverStatus.NotFound,
+            data: dalResult.data,
+            msg: serverMSG.NotFound
+          };
+        }
       } else {
         return {
           status: serverStatus.NotFound,
@@ -70,16 +77,9 @@ export const cartHandler = {
         };
       }
     } else {
-      return {
-        status: serverStatus.NotFound,
-        data: dalResult.data,
-        msg: serverMSG.NotFound
-      };
+      return validationResult
     }
-  } else {
-    return validationResult
-  }
-},
+  },
   patchItemHandler: async (patchItemData: ISpecCart, cartId: number): Promise<IServer> => {
     const validationResult = await validationDAL(patchItemData)
     if (validationResult.status === serverStatus.Success) {

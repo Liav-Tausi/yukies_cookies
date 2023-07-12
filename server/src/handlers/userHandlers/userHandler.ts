@@ -3,7 +3,7 @@ import { userDAL } from "../../DAL/userDAL/userDAL";
 import { serverMSG } from "../../enums/serverStatusesEnums/serverMSG";
 import { serverStatus } from "../../enums/serverStatusesEnums/serverStatus";
 import { IServer } from "../../interfaces/serverInterfaces/IServer";
-import ISpecUser, { isISpecUser } from "../../interfaces/userInterfaces/ISpecUser";
+import { ISpecUser, isISpecUser } from "../../interfaces/userInterfaces/ISpecUser";
 import { validationDAL } from "../../middleware/validateDAL";
 
 export const userHandler = {

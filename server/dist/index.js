@@ -14,6 +14,7 @@ const loginOrRegisterRouter_1 = require("./routers/userRouters/loginOrRegisterRo
 const catalogRouter_1 = require("./routers/catalogRouters/catalogRouter");
 const cartRouter_1 = require("./routers/cartRouters/cartRouter");
 const userRouter_1 = require("./routers/userRouters/userRouter");
+const cartItems_1 = require("./routers/cartRouters/cartItems");
 dotenv_1.default.config();
 const startServer = () => {
     const app = (0, express_1.default)();
@@ -28,6 +29,7 @@ const startServer = () => {
     app.use(baseRoute + "user/", userRouter_1.userRouter);
     app.use(baseRoute + "catalog/", catalogRouter_1.catalogRouter);
     app.use(baseRoute + "cart/", cartRouter_1.cartRouter);
+    app.use(baseRoute + "cart_items", cartItems_1.cartItemsRouter);
     app.listen(port, () => {
         console.log(`[server]: Server is running at http://localhost:${port}`);
     });

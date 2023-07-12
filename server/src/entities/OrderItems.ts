@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, JoinColumn, UpdateDateColumn, CreateDateColumn } from "typeorm"
 import { IsNotEmpty, IsNumber, Min, Max } from "class-validator";
-import { User } from "./User";
 import { orderItemsTableEnumConfig } from "../enums/ORMEnums/orderItemTableEnum";
+import { Order } from "./Order";
 
 
 @Entity()
@@ -10,10 +10,10 @@ export class OrderItems extends BaseEntity{
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(() => User)
+    @ManyToOne(() => Order)
     @JoinColumn()
     @IsNotEmpty()
-    user: number;
+    order: number;
 
     @Column()
     @IsNotEmpty()
