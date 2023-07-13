@@ -1,1 +1,1 @@
-{"version":3,"file":"IReview.js","sourceRoot":"","sources":["../../../src/interfaces/reviewInterfaces/IReview.ts"],"names":[],"mappings":""}
+{"version":3,"file":"IReview.js","sourceRoot":"","sources":["../../../src/interfaces/reviewInterfaces/IReview.ts"],"names":[],"mappings":";;;AAOO,MAAM,SAAS,GAAG,CAAC,GAAQ,EAAkB,EAAE;IACpD,OAAO,GAAG,IAAI,GAAG,CAAC,IAAI,IAAI,GAAG,CAAC,IAAI,IAAI,GAAG,CAAC,MAAM,IAAI,GAAG,CAAC,OAAO,CAAA;AACjE,CAAC,CAAA;AAFY,QAAA,SAAS,aAErB"}

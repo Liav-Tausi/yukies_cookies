@@ -8,6 +8,7 @@ import { CartItems } from "./entities/CartItems";
 import { Favorite } from "./entities/Favorite";
 import { Order } from "./entities/Order";
 import { OrderItems } from "./entities/OrderItems";
+import { Review } from "./entities/Review";
 
 
 dotenv.config();
@@ -22,7 +23,7 @@ export const AppDataSource = new DataSource({
   database: process.env.DB_NAME,
   synchronize: true,
   logging: false,
-  entities: [User, Cake, Cart, Favorite, Order, CartItems, OrderItems],
+  entities: [User, Cake, Cart, Favorite, Order, Review ,CartItems, OrderItems],
   migrations: ["./dist/migrations/**/*{.js,.ts}"],
   subscribers: [".dist/subscribers/**/*{.js,.ts}"],
   migrationsTableName: "migrations",

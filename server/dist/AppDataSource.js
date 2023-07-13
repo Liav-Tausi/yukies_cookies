@@ -14,6 +14,7 @@ const CartItems_1 = require("./entities/CartItems");
 const Favorite_1 = require("./entities/Favorite");
 const Order_1 = require("./entities/Order");
 const OrderItems_1 = require("./entities/OrderItems");
+const Review_1 = require("./entities/Review");
 dotenv_1.default.config();
 exports.AppDataSource = new typeorm_1.DataSource({
     type: "postgres",
@@ -24,7 +25,7 @@ exports.AppDataSource = new typeorm_1.DataSource({
     database: process.env.DB_NAME,
     synchronize: true,
     logging: false,
-    entities: [User_1.User, Cake_1.Cake, Cart_1.Cart, Favorite_1.Favorite, Order_1.Order, CartItems_1.CartItems, OrderItems_1.OrderItems],
+    entities: [User_1.User, Cake_1.Cake, Cart_1.Cart, Favorite_1.Favorite, Order_1.Order, Review_1.Review, CartItems_1.CartItems, OrderItems_1.OrderItems],
     migrations: ["./dist/migrations/**/*{.js,.ts}"],
     subscribers: [".dist/subscribers/**/*{.js,.ts}"],
     migrationsTableName: "migrations",

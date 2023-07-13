@@ -9,7 +9,9 @@ import { loginOrRegisterRouter } from "./routers/userRouters/loginOrRegisterRout
 import { catalogRouter } from "./routers/catalogRouters/catalogRouter";
 import { cartRouter } from "./routers/cartRouters/cartRouter";
 import { userRouter } from "./routers/userRouters/userRouter";
-import { cartItemsRouter } from "./routers/cartRouters/cartItems";
+import { cartItemsRouter } from "./routers/cartRouters/cartItemsRouter";
+import { favoriteRouter } from "./routers/favoriteRouters/favoriteRouter";
+import { reviewRouter } from "./routers/reviewRouters/reviewRouter";
 
 dotenv.config();
 
@@ -26,9 +28,11 @@ const startServer = () => {
 
   app.use(baseRoute + "auth/", loginOrRegisterRouter);
   app.use(baseRoute + "user/", userRouter);
+  app.use(baseRoute + "favorite/", favoriteRouter);
+  app.use(baseRoute + "review/", reviewRouter);
   app.use(baseRoute + "catalog/", catalogRouter);
   app.use(baseRoute + "cart/", cartRouter);
-  app.use(baseRoute + "cart_items", cartItemsRouter);
+  app.use(baseRoute + "cart_items/", cartItemsRouter);
 
   app.listen(port, () => {
     console.log(`[server]: Server is running at http://localhost:${port}`);

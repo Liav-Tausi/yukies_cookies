@@ -37,7 +37,7 @@ export const cartHandler = {
     const validationResult = await validationDAL(getItemData)
     if (validationResult.status === serverStatus.Success) {
       const dalResult: IServer = await cartDAL.getItemDAL(getItemData);
-      if (dalResult.status === serverStatus.Success && isISpecCart(dalResult.data["cart"])) {
+      if (dalResult.status === serverStatus.Success) {
           return dalResult
       } else {
           return {
@@ -84,7 +84,7 @@ export const cartHandler = {
     const validationResult = await validationDAL(patchItemData)
     if (validationResult.status === serverStatus.Success) {
       const dalResult: IServer = await cartDAL.patchItemDAL(patchItemData, cartId);
-      if (dalResult.status === serverStatus.Updated && isISpecCart(dalResult.data["cart"])) {
+      if (dalResult.status === serverStatus.Updated) {
           return dalResult
       } else {
           return {
@@ -101,7 +101,7 @@ export const cartHandler = {
     const validationResult = await validationDAL(deleteItemData)
     if (validationResult.status === serverStatus.Success) {
       const dalResult: IServer = await cartDAL.deleteItemDAL(deleteItemData);
-      if (dalResult.status === serverStatus.Deleted && isISpecCart(dalResult.data["cart"])) {
+      if (dalResult.status === serverStatus.Deleted) {
           return dalResult
       } else {
           return {

@@ -10,7 +10,7 @@ import { CartItems } from "../../entities/CartItems";
 import { validationDAL } from "../../middleware/validateDAL";
 
 export const cartItemsDAL = {
-  addCartDAL: async (addCartData: ICartItem): Promise<IServer> => {
+  addItemDAL: async (addCartData: ICartItem): Promise<IServer> => {
     const { user, cart, cake, quantity } = addCartData
     try {
       let newCartItems: CartItems
@@ -53,7 +53,7 @@ export const cartItemsDAL = {
       }
     } catch (error: any) {
         console.error(error.message, {
-          functionName: cartItemsDAL.addCartDAL.name,
+          functionName: cartItemsDAL.addItemDAL.name,
         });
         return {
           status: serverStatus.RequestFail,
@@ -62,7 +62,7 @@ export const cartItemsDAL = {
         };
       }
     },
-  getCartDAL: async (getCartData: ISpecCartItems): Promise<IServer> => {
+  getItemDAL: async (getCartData: ISpecCartItems): Promise<IServer> => {
     try {
       const { user, cart, cake, quantity } = getCartData
       let cartItems: CartItems
@@ -87,7 +87,7 @@ export const cartItemsDAL = {
       }
     } catch (error: any) {
         console.error(error.message, {
-        functionName: cartItemsDAL.getCartDAL.name,
+        functionName: cartItemsDAL.getItemDAL.name,
       });
       return {
         status: serverStatus.RequestFail,
@@ -96,7 +96,7 @@ export const cartItemsDAL = {
       };
     }
   },
-  listCartDAL: async (listCartData: ISpecCartItems): Promise<IServer> => {
+  listItemDAL: async (listCartData: ISpecCartItems): Promise<IServer> => {
     try {
        const { user, cart, cake, quantity } = listCartData
        let cartItems: []
@@ -121,7 +121,7 @@ export const cartItemsDAL = {
       }
     } catch (error: any) {
       console.error(error.message, {
-        functionName: cartItemsDAL.listCartDAL.name,
+        functionName: cartItemsDAL.listItemDAL.name,
       });
       return {
         status: serverStatus.RequestFail,
@@ -130,7 +130,7 @@ export const cartItemsDAL = {
       };
     }
   },
-  patchCartDAL: async (patchCartData: ISpecCartItems, cartItemsId: number): Promise<IServer> => {
+  patchItemDAL: async (patchCartData: ISpecCartItems, cartItemsId: number): Promise<IServer> => {
     try {
       const cartItems: UpdateResult = await AppDataSource.manager.update(CartItems, cartItemsId, patchCartData);
       if (cartItems) {
@@ -148,7 +148,7 @@ export const cartItemsDAL = {
       }
     } catch (error: any) {
         console.error(error.message, {
-        functionName: cartItemsDAL.patchCartDAL.name,
+        functionName: cartItemsDAL.patchItemDAL.name,
       });
       return {
         status: serverStatus.RequestFail,
@@ -157,14 +157,14 @@ export const cartItemsDAL = {
       };
     }
   },
-  deleteCartDAL: async (deleteCartData: ISpecCartItems): Promise<IServer> => {
+  deleteItemDAL: async (deleteCartData: ISpecCartItems): Promise<IServer> => {
     try {
       const { user } = deleteCartData
-      const cart: DeleteResult = await AppDataSource.manager.delete(Cart, {user});
-      if (cart) {
+      const deletedCart: DeleteResult = await AppDataSource.manager.delete(CartItems, {id: user});
+      if (deletedCart.affected >= 1) {
         return {
           status: serverStatus.Deleted,
-          data: {cart: cart},
+          data: {cartItems: deletedCart},
           msg: serverMSG.Deleted
         }
       } else {
@@ -176,7 +176,7 @@ export const cartItemsDAL = {
       }
     } catch (error: any) {
         console.error(error.message, {
-        functionName: cartItemsDAL.deleteCartDAL.name,
+        functionName: cartItemsDAL.deleteItemDAL.name,
       });
       return {
         status: serverStatus.RequestFail,

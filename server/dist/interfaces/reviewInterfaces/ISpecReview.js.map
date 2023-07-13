@@ -1,0 +1,1 @@
+{"version":3,"file":"ISpecReview.js","sourceRoot":"","sources":["../../../src/interfaces/reviewInterfaces/ISpecReview.ts"],"names":[],"mappings":";;;AAOO,MAAM,aAAa,GAAG,CAAC,GAAQ,EAAsB,EAAE;IAC5D,OAAO,GAAG,IAAI,CAAC,GAAG,CAAC,IAAI,KAAK,SAAS,IAAI,GAAG,CAAC,IAAI,KAAK,SAAS,IAAI,GAAG,CAAC,MAAM,KAAK,SAAS,IAAI,GAAG,CAAC,OAAO,KAAK,SAAS,CAAC,CAAA;AAC3H,CAAC,CAAA;AAFY,QAAA,aAAa,iBAEzB"}

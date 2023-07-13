@@ -5,11 +5,10 @@ const cartItemsDAL_1 = require("../../DAL/cartDAL/cartItemsDAL");
 const serverMSG_1 = require("../../enums/serverStatusesEnums/serverMSG");
 const serverStatus_1 = require("../../enums/serverStatusesEnums/serverStatus");
 const ICartItem_1 = require("../../interfaces/cartItemInterfaces/ICartItem");
-const ISpecCartItems_1 = require("../../interfaces/cartItemInterfaces/ISpecCartItems");
 const validateDAL_1 = require("../../middleware/validateDAL");
 exports.cartItemsHandler = {
     addCartHandler: async (addCartData) => {
-        const dalResult = await cartItemsDAL_1.cartItemsDAL.addCartDAL(addCartData);
+        const dalResult = await cartItemsDAL_1.cartItemsDAL.addItemDAL(addCartData);
         if (dalResult.status === serverStatus_1.serverStatus.Created && (0, ICartItem_1.isICartItem)(dalResult.data)) {
             return {
                 status: serverStatus_1.serverStatus.Created,
@@ -35,8 +34,8 @@ exports.cartItemsHandler = {
     getCartHandler: async (getCartData) => {
         const validationResult = await (0, validateDAL_1.validationDAL)(getCartData);
         if (validationResult.status === serverStatus_1.serverStatus.Success) {
-            const dalResult = await cartItemsDAL_1.cartItemsDAL.getCartDAL(getCartData);
-            if (dalResult.status === serverStatus_1.serverStatus.Success && (0, ISpecCartItems_1.isISpecCartItems)(dalResult.data["cartItems"])) {
+            const dalResult = await cartItemsDAL_1.cartItemsDAL.getItemDAL(getCartData);
+            if (dalResult.status === serverStatus_1.serverStatus.Success && (0, ICartItem_1.isICartItem)(dalResult.data["cartItems"])) {
                 return dalResult;
             }
             else {
@@ -54,7 +53,7 @@ exports.cartItemsHandler = {
     listCartHandler: async (listItemData) => {
         const validationResult = await (0, validateDAL_1.validationDAL)(listItemData);
         if (validationResult.status === serverStatus_1.serverStatus.Success) {
-            const dalResult = await cartItemsDAL_1.cartItemsDAL.listCartDAL(listItemData);
+            const dalResult = await cartItemsDAL_1.cartItemsDAL.listItemDAL(listItemData);
             if (dalResult.status === serverStatus_1.serverStatus.Success) {
                 const cartItems = dalResult.data["cartItems"];
                 if (Array.isArray(cartItems)) {
@@ -87,8 +86,8 @@ exports.cartItemsHandler = {
     patchCartHandler: async (patchCartData, cartItemsId) => {
         const validationResult = await (0, validateDAL_1.validationDAL)(patchCartData);
         if (validationResult.status === serverStatus_1.serverStatus.Success) {
-            const dalResult = await cartItemsDAL_1.cartItemsDAL.patchCartDAL(patchCartData, cartItemsId);
-            if (dalResult.status === serverStatus_1.serverStatus.Updated && (0, ISpecCartItems_1.isISpecCartItems)(dalResult.data["cartItems"])) {
+            const dalResult = await cartItemsDAL_1.cartItemsDAL.patchItemDAL(patchCartData, cartItemsId);
+            if (dalResult.status === serverStatus_1.serverStatus.Updated) {
                 return dalResult;
             }
             else {
@@ -106,8 +105,8 @@ exports.cartItemsHandler = {
     deleteCartHandler: async (deleteCartData) => {
         const validationResult = await (0, validateDAL_1.validationDAL)(deleteCartData);
         if (validationResult.status === serverStatus_1.serverStatus.Success) {
-            const dalResult = await cartItemsDAL_1.cartItemsDAL.deleteCartDAL(deleteCartData);
-            if (dalResult.status === serverStatus_1.serverStatus.Deleted && (0, ISpecCartItems_1.isISpecCartItems)(dalResult.data["cartItems"])) {
+            const dalResult = await cartItemsDAL_1.cartItemsDAL.deleteItemDAL(deleteCartData);
+            if (dalResult.status === serverStatus_1.serverStatus.Deleted) {
                 return dalResult;
             }
             else {

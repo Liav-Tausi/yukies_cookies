@@ -9,7 +9,7 @@ const ICartItem_1 = require("../../interfaces/cartItemInterfaces/ICartItem");
 const CartItems_1 = require("../../entities/CartItems");
 const validateDAL_1 = require("../../middleware/validateDAL");
 exports.cartItemsDAL = {
-    addCartDAL: async (addCartData) => {
+    addItemDAL: async (addCartData) => {
         const { user, cart, cake, quantity } = addCartData;
         try {
             let newCartItems;
@@ -62,7 +62,7 @@ exports.cartItemsDAL = {
         }
         catch (error) {
             console.error(error.message, {
-                functionName: exports.cartItemsDAL.addCartDAL.name,
+                functionName: exports.cartItemsDAL.addItemDAL.name,
             });
             return {
                 status: serverStatus_1.serverStatus.RequestFail,
@@ -71,7 +71,7 @@ exports.cartItemsDAL = {
             };
         }
     },
-    getCartDAL: async (getCartData) => {
+    getItemDAL: async (getCartData) => {
         try {
             const { user, cart, cake, quantity } = getCartData;
             let cartItems;
@@ -99,7 +99,7 @@ exports.cartItemsDAL = {
         }
         catch (error) {
             console.error(error.message, {
-                functionName: exports.cartItemsDAL.getCartDAL.name,
+                functionName: exports.cartItemsDAL.getItemDAL.name,
             });
             return {
                 status: serverStatus_1.serverStatus.RequestFail,
@@ -108,7 +108,7 @@ exports.cartItemsDAL = {
             };
         }
     },
-    listCartDAL: async (listCartData) => {
+    listItemDAL: async (listCartData) => {
         try {
             const { user, cart, cake, quantity } = listCartData;
             let cartItems;
@@ -136,7 +136,7 @@ exports.cartItemsDAL = {
         }
         catch (error) {
             console.error(error.message, {
-                functionName: exports.cartItemsDAL.listCartDAL.name,
+                functionName: exports.cartItemsDAL.listItemDAL.name,
             });
             return {
                 status: serverStatus_1.serverStatus.RequestFail,
@@ -145,7 +145,7 @@ exports.cartItemsDAL = {
             };
         }
     },
-    patchCartDAL: async (patchCartData, cartItemsId) => {
+    patchItemDAL: async (patchCartData, cartItemsId) => {
         try {
             const cartItems = await AppDataSource_1.AppDataSource.manager.update(CartItems_1.CartItems, cartItemsId, patchCartData);
             if (cartItems) {
@@ -165,7 +165,7 @@ exports.cartItemsDAL = {
         }
         catch (error) {
             console.error(error.message, {
-                functionName: exports.cartItemsDAL.patchCartDAL.name,
+                functionName: exports.cartItemsDAL.patchItemDAL.name,
             });
             return {
                 status: serverStatus_1.serverStatus.RequestFail,
@@ -174,14 +174,14 @@ exports.cartItemsDAL = {
             };
         }
     },
-    deleteCartDAL: async (deleteCartData) => {
+    deleteItemDAL: async (deleteCartData) => {
         try {
             const { user } = deleteCartData;
-            const cart = await AppDataSource_1.AppDataSource.manager.delete(Cart_1.Cart, { user });
-            if (cart) {
+            const deletedCart = await AppDataSource_1.AppDataSource.manager.delete(CartItems_1.CartItems, { id: user });
+            if (deletedCart.affected >= 1) {
                 return {
                     status: serverStatus_1.serverStatus.Deleted,
-                    data: { cart: cart },
+                    data: { cartItems: deletedCart },
                     msg: serverMSG_1.serverMSG.Deleted
                 };
             }
@@ -195,7 +195,7 @@ exports.cartItemsDAL = {
         }
         catch (error) {
             console.error(error.message, {
-                functionName: exports.cartItemsDAL.deleteCartDAL.name,
+                functionName: exports.cartItemsDAL.deleteItemDAL.name,
             });
             return {
                 status: serverStatus_1.serverStatus.RequestFail,

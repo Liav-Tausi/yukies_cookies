@@ -4,14 +4,14 @@ exports.userHandler = void 0;
 const userDAL_1 = require("../../DAL/userDAL/userDAL");
 const serverMSG_1 = require("../../enums/serverStatusesEnums/serverMSG");
 const serverStatus_1 = require("../../enums/serverStatusesEnums/serverStatus");
-const ISpecUser_1 = require("../../interfaces/userInterfaces/ISpecUser");
+const IUser_1 = require("../../interfaces/userInterfaces/IUser");
 const validateDAL_1 = require("../../middleware/validateDAL");
 exports.userHandler = {
     getUserHandler: async (getUserData) => {
         const validationResult = await (0, validateDAL_1.validationDAL)(getUserData);
         if (validationResult.status === serverStatus_1.serverStatus.Success) {
             const dalResult = await userDAL_1.userDAL.getItemDAL(getUserData);
-            if (dalResult.status === serverStatus_1.serverStatus.Success && (0, ISpecUser_1.isISpecUser)(dalResult.data["user"])) {
+            if (dalResult.status === serverStatus_1.serverStatus.Success && (0, IUser_1.isIUser)(dalResult.data["user"])) {
                 return dalResult;
             }
             else {
@@ -63,7 +63,7 @@ exports.userHandler = {
         const validationResult = await (0, validateDAL_1.validationDAL)(patchUserData);
         if (validationResult.status === serverStatus_1.serverStatus.Success) {
             const dalResult = await userDAL_1.userDAL.patchItemDAL(patchUserData, userId);
-            if (dalResult.status === serverStatus_1.serverStatus.Updated && (0, ISpecUser_1.isISpecUser)(dalResult.data["user"])) {
+            if (dalResult.status === serverStatus_1.serverStatus.Updated) {
                 return dalResult;
             }
             else {
@@ -82,7 +82,7 @@ exports.userHandler = {
         const validationResult = await (0, validateDAL_1.validationDAL)(deleteUserData);
         if (validationResult.status === serverStatus_1.serverStatus.Success) {
             const dalResult = await userDAL_1.userDAL.deleteItemDAL(deleteUserData);
-            if (dalResult.status === serverStatus_1.serverStatus.Deleted && (0, ISpecUser_1.isISpecUser)(dalResult.data["user"])) {
+            if (dalResult.status === serverStatus_1.serverStatus.Deleted) {
                 return dalResult;
             }
             else {

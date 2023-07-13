@@ -72,7 +72,7 @@ exports.cartItemsController = {
     },
     deleteCartController: async (req, res) => {
         try {
-            const user = req.query.user !== undefined ? Number(req.query.user) : undefined;
+            const user = req.query.cart !== undefined ? Number(req.query.cart) : undefined;
             const cartData = cartItemsOptionalValidation_1.cartItemsOptionalValidation.parse({ user });
             const handlerResult = await cartItemsHandler_1.cartItemsHandler.deleteCartHandler(cartData);
             const serverResultStatus = handlerResult.status;

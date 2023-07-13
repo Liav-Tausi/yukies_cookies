@@ -7,7 +7,6 @@ const Cart_1 = require("../../entities/Cart");
 const serverMSG_1 = require("../../enums/serverStatusesEnums/serverMSG");
 const serverStatus_1 = require("../../enums/serverStatusesEnums/serverStatus");
 const ICart_1 = require("../../interfaces/cartInterfaces/ICart");
-const ISpecCart_1 = require("../../interfaces/cartInterfaces/ISpecCart");
 const validateDAL_1 = require("../../middleware/validateDAL");
 exports.cartHandler = {
     addItemHandler: async (addItemData) => {
@@ -39,7 +38,7 @@ exports.cartHandler = {
         const validationResult = await (0, validateDAL_1.validationDAL)(getItemData);
         if (validationResult.status === serverStatus_1.serverStatus.Success) {
             const dalResult = await cartDAL_1.cartDAL.getItemDAL(getItemData);
-            if (dalResult.status === serverStatus_1.serverStatus.Success && (0, ISpecCart_1.isISpecCart)(dalResult.data["cart"])) {
+            if (dalResult.status === serverStatus_1.serverStatus.Success) {
                 return dalResult;
             }
             else {
@@ -91,7 +90,7 @@ exports.cartHandler = {
         const validationResult = await (0, validateDAL_1.validationDAL)(patchItemData);
         if (validationResult.status === serverStatus_1.serverStatus.Success) {
             const dalResult = await cartDAL_1.cartDAL.patchItemDAL(patchItemData, cartId);
-            if (dalResult.status === serverStatus_1.serverStatus.Updated && (0, ISpecCart_1.isISpecCart)(dalResult.data["cart"])) {
+            if (dalResult.status === serverStatus_1.serverStatus.Updated) {
                 return dalResult;
             }
             else {
@@ -110,7 +109,7 @@ exports.cartHandler = {
         const validationResult = await (0, validateDAL_1.validationDAL)(deleteItemData);
         if (validationResult.status === serverStatus_1.serverStatus.Success) {
             const dalResult = await cartDAL_1.cartDAL.deleteItemDAL(deleteItemData);
-            if (dalResult.status === serverStatus_1.serverStatus.Deleted && (0, ISpecCart_1.isISpecCart)(dalResult.data["cart"])) {
+            if (dalResult.status === serverStatus_1.serverStatus.Deleted) {
                 return dalResult;
             }
             else {

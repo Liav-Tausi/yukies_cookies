@@ -1,1 +1,1 @@
-{"version":3,"file":"IFavorite.js","sourceRoot":"","sources":["../../../src/interfaces/favoriteInterfaces/IFavorite.ts"],"names":[],"mappings":""}
+{"version":3,"file":"IFavorite.js","sourceRoot":"","sources":["../../../src/interfaces/favoriteInterfaces/IFavorite.ts"],"names":[],"mappings":";;;AAMO,MAAM,WAAW,GAAG,CAAC,GAAQ,EAAoB,EAAE;IACxD,OAAO,GAAG,IAAI,GAAG,CAAC,IAAI,IAAI,GAAG,CAAC,IAAI,CAAA;AACpC,CAAC,CAAA;AAFY,QAAA,WAAW,eAEvB"}

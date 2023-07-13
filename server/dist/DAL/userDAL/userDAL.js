@@ -99,7 +99,7 @@ exports.userDAL = {
     deleteItemDAL: async (deleteUserData) => {
         try {
             const user = await AppDataSource_1.AppDataSource.manager.delete(User_1.User, deleteUserData);
-            if (user) {
+            if (user.affected >= 1) {
                 return {
                     status: serverStatus_1.serverStatus.Deleted,
                     data: { user: user },

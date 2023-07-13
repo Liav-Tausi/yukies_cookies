@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, BaseEntity, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from "typeorm"
 import { IsNotEmpty } from "class-validator";
 import { User } from "./User";
 import { Cake } from "./Cake";

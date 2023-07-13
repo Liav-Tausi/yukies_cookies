@@ -1,0 +1,1 @@
+{"version":3,"file":"ISpecFavorite.js","sourceRoot":"","sources":["../../../src/interfaces/favoriteInterfaces/ISpecFavorite.ts"],"names":[],"mappings":";;;AAKO,MAAM,eAAe,GAAG,CAAC,GAAQ,EAAwB,EAAE;IAChE,OAAO,CACL,GAAG;QACH,CAAC,GAAG,CAAC,IAAI,KAAK,SAAS;YACrB,GAAG,CAAC,IAAI,KAAK,SAAS,CAAC,CAC1B,CAAA;AACH,CAAC,CAAC;AANW,QAAA,eAAe,mBAM1B"}

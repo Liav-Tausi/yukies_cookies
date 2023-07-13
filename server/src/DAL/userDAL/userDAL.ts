@@ -94,7 +94,7 @@ export const userDAL = {
   deleteItemDAL: async (deleteUserData: ISpecUser): Promise<IServer> => {
     try {
       const user: DeleteResult = await AppDataSource.manager.delete(User, deleteUserData);
-      if (user) {
+      if (user.affected >= 1) {
         return {
           status: serverStatus.Deleted,
           data: {user: user},

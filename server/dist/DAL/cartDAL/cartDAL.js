@@ -132,7 +132,7 @@ exports.cartDAL = {
         try {
             const { user } = deleteItemData;
             const cart = await AppDataSource_1.AppDataSource.manager.delete(Cart_1.Cart, { user });
-            if (cart) {
+            if (cart.affected >= 1) {
                 return {
                     status: serverStatus_1.serverStatus.Deleted,
                     data: { cart: cart },

@@ -125,7 +125,7 @@ export const cartDAL = {
     try {
       const { user } = deleteItemData
       const cart: DeleteResult = await AppDataSource.manager.delete(Cart, {user});
-      if (cart) {
+      if (cart.affected >= 1) {
         return {
           status: serverStatus.Deleted,
           data: {cart: cart},

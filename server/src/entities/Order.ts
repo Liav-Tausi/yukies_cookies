@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from "typeorm"
 import { IsNotEmpty, IsNumber, Min, Max, IsDate } from "class-validator";
 import { User } from "./User";
-import { orderTableEnum, orderTableEnumConfig } from "../enums/ORMEnums/orderTableEnum";
+import { orderTableEnumConfig } from "../enums/ORMEnums/orderTableEnum";
 
 
 @Entity()

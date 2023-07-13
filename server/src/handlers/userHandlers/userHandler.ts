@@ -1,9 +1,9 @@
-import { cartDAL } from "../../DAL/cartDAL/cartDAL";
 import { userDAL } from "../../DAL/userDAL/userDAL";
 import { serverMSG } from "../../enums/serverStatusesEnums/serverMSG";
 import { serverStatus } from "../../enums/serverStatusesEnums/serverStatus";
 import { IServer } from "../../interfaces/serverInterfaces/IServer";
 import { ISpecUser, isISpecUser } from "../../interfaces/userInterfaces/ISpecUser";
+import { isIUser } from "../../interfaces/userInterfaces/IUser";
 import { validationDAL } from "../../middleware/validateDAL";
 
 export const userHandler = {
@@ -11,7 +11,7 @@ export const userHandler = {
     const validationResult = await validationDAL(getUserData)
     if (validationResult.status === serverStatus.Success) {
       const dalResult: IServer = await userDAL.getItemDAL(getUserData);
-      if (dalResult.status === serverStatus.Success && isISpecUser(dalResult.data["user"])) {
+      if (dalResult.status === serverStatus.Success && isIUser(dalResult.data["user"])) {
           return dalResult
       } else {
           return {
@@ -58,7 +58,7 @@ export const userHandler = {
     const validationResult = await validationDAL(patchUserData)
     if (validationResult.status === serverStatus.Success) {
       const dalResult: IServer = await userDAL.patchItemDAL(patchUserData, userId);
-      if (dalResult.status === serverStatus.Updated && isISpecUser(dalResult.data["user"])) {
+      if (dalResult.status === serverStatus.Updated) {
           return dalResult
       } else {
           return {
@@ -75,7 +75,7 @@ export const userHandler = {
     const validationResult = await validationDAL(deleteUserData)
     if (validationResult.status === serverStatus.Success ) {
       const dalResult: IServer = await userDAL.deleteItemDAL(deleteUserData);
-      if (dalResult.status === serverStatus.Deleted && isISpecUser(dalResult.data["user"])) {
+      if (dalResult.status === serverStatus.Deleted) {
           return dalResult
       } else {
           return {
