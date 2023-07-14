@@ -77,8 +77,8 @@ export const cartController = {
   },
   deleteItemController: async (req: Request, res: Response): Promise<void> => {
     try {
-      const id = req.query.user !== undefined ? Number(req.query.user) : undefined;
-      const cartData: any = cartOptionalValidation.parse({id});
+      const cartId =  Number(req.query.cart)
+      const cartData: any = cartOptionalValidation.parse({id:cartId});
       const handlerResult = await cartHandler.deleteItemHandler(cartData);
       const serverResultStatus: number = handlerResult.status
 

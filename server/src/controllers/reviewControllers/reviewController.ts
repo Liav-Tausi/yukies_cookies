@@ -77,8 +77,8 @@ export const reviewController = {
   },
   deleteItemController: async (req: Request, res: Response): Promise<void> => {
     try {
-      const user = req.query.user !== undefined ? Number(req.query.user) : undefined;
-      const reviewData: any = reviewOptionalValidation.parse({ user });
+      const reviewId = Number(req.query.review)
+      const reviewData: any = reviewOptionalValidation.parse({id:reviewId});
       const handlerResult = await reviewHandler.deleteReviewHandler(reviewData);
       const serverResultStatus: number = handlerResult.status;
 

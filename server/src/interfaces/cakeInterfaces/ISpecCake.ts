@@ -1,4 +1,5 @@
 export interface ISpecCake {
+    id? : number,
     name?: string
     shortDescription?: string
     longDescription?: string

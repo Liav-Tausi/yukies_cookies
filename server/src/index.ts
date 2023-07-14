@@ -12,6 +12,7 @@ import { userRouter } from "./routers/userRouters/userRouter";
 import { cartItemsRouter } from "./routers/cartRouters/cartItemsRouter";
 import { favoriteRouter } from "./routers/favoriteRouters/favoriteRouter";
 import { reviewRouter } from "./routers/reviewRouters/reviewRouter";
+import { orderRouter } from "./routers/orderRouters/orderRouter";
 
 dotenv.config();
 
@@ -31,6 +32,8 @@ const startServer = () => {
   app.use(baseRoute + "favorite/", favoriteRouter);
   app.use(baseRoute + "review/", reviewRouter);
   app.use(baseRoute + "catalog/", catalogRouter);
+  app.use(baseRoute + "order/", orderRouter)
+  app.use(baseRoute + "order_items/", orderItemsRouter)
   app.use(baseRoute + "cart/", cartRouter);
   app.use(baseRoute + "cart_items/", cartItemsRouter);
 

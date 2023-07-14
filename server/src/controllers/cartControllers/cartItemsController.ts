@@ -9,11 +9,11 @@ import { cartItemsOptionalValidation } from "../../middleware/cartValidations/ca
 import { cartItemsHandler } from "../../handlers/cartHandlers/cartItemsHandler";
 
 export const cartItemsController = {
-  addCartController: async (req: Request, res: Response): Promise<void> => {
+  addItemController: async (req: Request, res: Response): Promise<void> => {
     try {
       const initialCartItemsData: ICartItem = req.body
       const cartData: any = cartItemsValidation.parse(initialCartItemsData);
-      const handlerResult = await cartItemsHandler.addCartHandler(cartData);
+      const handlerResult = await cartItemsHandler.addItemHandler(cartData);
       const serverResultStatus: number = handlerResult.status;
 
       res.status(
@@ -28,7 +28,7 @@ export const cartItemsController = {
       zodErrorHandling(error, res)
     }
   },
-  getCartController: async (req: Request, res: Response): Promise<void> => {
+  getItemController: async (req: Request, res: Response): Promise<void> => {
     try {
       const listOrGet = req.query.first
       const user = req.query.user !== undefined ? Number(req.query.user) : undefined;
@@ -39,7 +39,7 @@ export const cartItemsController = {
       const cartData: any = cartItemsOptionalValidation.parse({user, cart, cake, quantity});
 
       if (listOrGet) {
-        const handlerResult: IServer = await cartItemsHandler.getCartHandler(cartData);
+        const handlerResult: IServer = await cartItemsHandler.getItemHandler(cartData);
         res.status(
           handlerResult.status === serverStatus.Success
           ? serverStatus.Success 
@@ -48,7 +48,7 @@ export const cartItemsController = {
           : serverStatus.RequestFail
         ).json(handlerResult);
       } else {
-        const handlerResult: IServer = await cartItemsHandler.listCartHandler(cartData);
+        const handlerResult: IServer = await cartItemsHandler.listItemHandler(cartData);
         res.status(
           handlerResult.status === serverStatus.Success
           ? serverStatus.Success 
@@ -62,12 +62,12 @@ export const cartItemsController = {
       zodErrorHandling(error, res)
     }
   },
-  patchCartController: async (req: Request, res: Response): Promise<void> => {
+  patchItemController: async (req: Request, res: Response): Promise<void> => {
     try {
       const initialCartItemsData: ISpecCartItems = req.body
       const cartId: number = Number(req.query.cart)
       const cartData: any = cartItemsOptionalValidation.parse(initialCartItemsData);
-      const handlerResult = await cartItemsHandler.patchCartHandler(cartData, cartId);
+      const handlerResult = await cartItemsHandler.patchItemHandler(cartData, cartId);
       const serverResultStatus: number = handlerResult.status
 
       res.status(
@@ -81,11 +81,11 @@ export const cartItemsController = {
       zodErrorHandling(error, res)
     }
   },
-  deleteCartController: async (req: Request, res: Response): Promise<void> => {
+  deleteItemController: async (req: Request, res: Response): Promise<void> => {
     try {
-      const user = req.query.cart !== undefined ? Number(req.query.cart) : undefined;
-      const cartData: any = cartItemsOptionalValidation.parse({user});
-      const handlerResult = await cartItemsHandler.deleteCartHandler(cartData);
+      const cartId = req.query.cart !== undefined ? Number(req.query.cart) : undefined;
+      const cartData: any = cartItemsOptionalValidation.parse({id:cartId});
+      const handlerResult = await cartItemsHandler.deleteItemHandler(cartData);
       const serverResultStatus: number = handlerResult.status
 
       res.status(

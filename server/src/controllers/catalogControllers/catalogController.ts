@@ -80,9 +80,10 @@ export const catalogController = {
   deleteItemController: async (req: Request, res: Response): Promise<void> => {
     try {
       const { name, shortDescription, longDescription, imageUrl } = req.query
+      const cakeId = req.query.cake !== undefined ? Number(req.query.cake) : undefined;
       const price = req.query.price !== undefined ? Number(req.query.price) : undefined;
       const catalogData: any = catalogOptionalValidation.parse({
-        name, shortDescription, longDescription, price, imageUrl
+        id:cakeId, name, shortDescription, longDescription, price, imageUrl
       });
       const handlerResult = await catalogHandler.deleteItemHandler(catalogData);
       const serverResultStatus: number = handlerResult.status

@@ -159,8 +159,7 @@ export const cartItemsDAL = {
   },
   deleteItemDAL: async (deleteCartData: ISpecCartItems): Promise<IServer> => {
     try {
-      const { user } = deleteCartData
-      const deletedCart: DeleteResult = await AppDataSource.manager.delete(CartItems, {id: user});
+      const deletedCart: DeleteResult = await AppDataSource.manager.delete(CartItems, deleteCartData);
       if (deletedCart.affected >= 1) {
         return {
           status: serverStatus.Deleted,

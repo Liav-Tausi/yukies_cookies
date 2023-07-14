@@ -4,17 +4,17 @@ import { cartItemsController } from "../../controllers/cartControllers/cartItems
 export const cartItemsRouter: Router = Router();
 
 cartItemsRouter.post('/add_item', (req: Request, res: Response): void => {
-  cartItemsController.addCartController(req, res);  
+  cartItemsController.addItemController(req, res);  
 });
 
 cartItemsRouter.get('/get_item', (req: Request, res: Response): void => {
-  cartItemsController.getCartController(req, res);  
+  cartItemsController.getItemController(req, res);  
 });
 
 cartItemsRouter.patch('/patch_item', (req: Request, res: Response): void => {
-  cartItemsController.patchCartController(req, res);  
+  cartItemsController.patchItemController(req, res);  
 });
 
 cartItemsRouter.delete('/delete_item', (req: Request, res: Response): void => {
-  cartItemsController.deleteCartController(req, res);  
+  cartItemsController.deleteItemController(req, res);  
 });

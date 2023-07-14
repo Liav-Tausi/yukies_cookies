@@ -1,4 +1,5 @@
 export interface ISpecCart {
+  id?: number
   user?: number
 }
 

@@ -2,6 +2,8 @@ import { z } from "zod";
 import { cartItemsTableEnumConfig } from "../../enums/ORMEnums/cartItemsTableEnum";
 
 export const cartItemsOptionalValidation = z.object({
+  
+  id: z.number().optional(),
 
   user: z.number().optional(),
 

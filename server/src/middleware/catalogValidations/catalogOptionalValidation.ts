@@ -3,6 +3,8 @@ import { cakeTableEnumConfig } from "../../enums/ORMEnums/cakeTableEnum";
 
 
 export const catalogOptionalValidation = z.object({
+  
+  id: z.number().optional(),
 
   name: z.string().min(cakeTableEnumConfig.MinLengthName).max(cakeTableEnumConfig.MaxLengthName).optional(),
 

@@ -1,4 +1,5 @@
 export interface ISpecReview {
+  id?: number,
   user?: number
   cake?: number
   rating?: number

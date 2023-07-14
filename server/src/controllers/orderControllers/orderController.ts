@@ -1,19 +1,19 @@
 import { Request, Response } from "express";
-import { IFavorite } from "../../interfaces/favoriteInterfaces/IFavorite";
-import { favoriteHandler } from "../../handlers/favoriteHandlers/favoriteHandler";
+import { IOrder } from "../../interfaces/orderInterfaces/IOrder";
+import { orderHandler } from "../../handlers/orderHandlers/orderHandler";
 import { serverStatus } from "../../enums/serverStatusesEnums/serverStatus";
 import { zodErrorHandling } from "../../middleware/zodErrorHandling";
 import { IServer } from "../../interfaces/serverInterfaces/IServer";
-import { ISpecFavorite } from "../../interfaces/favoriteInterfaces/ISpecFavorite";
-import { favoriteOptionalValidation } from "../../middleware/favoriteValidations/favoriteOptionalValidation";
-import { favoriteValidation } from "../../middleware/favoriteValidations/favoriteValidation";
+import { ISpecOrder } from "../../interfaces/orderInterfaces/ISpecOrder";
+import { orderValidation } from "../../middleware/orderValidations/orderValidation";
+import { orderOptionalValidation } from "../../middleware/orderValidations/orderOptionalValidation";
 
-export const favoriteController = {
+export const orderController = {
   addItemController: async (req: Request, res: Response): Promise<void> => {
     try {
-      const initialFavoriteData: IFavorite = req.body;
-      const favoriteData: any = favoriteValidation.parse(initialFavoriteData);
-      const handlerResult = await favoriteHandler.addItemHandler(favoriteData);
+      const initialOrderData: IOrder = req.body;
+      const orderData: any = orderValidation.parse(initialOrderData);
+      const handlerResult = await orderHandler.addItemHandler(orderData);
       const serverResultStatus: number = handlerResult.status;
 
       res.status(
@@ -30,10 +30,12 @@ export const favoriteController = {
     try {
       const listOrGet = req.query.first;
       const user = req.query.user !== undefined ? Number(req.query.user) : undefined;
-      const favoriteData: any = favoriteOptionalValidation.parse({ user });
+      const totalAmount = req.query.total_amount !== undefined ? Number(req.query.total_amount) : undefined;
+      const orderTime = req.query.order_time
+      const orderData: any = orderOptionalValidation.parse({ user, totalAmount, orderTime });
 
       if (listOrGet) {
-        const handlerResult: IServer = await favoriteHandler.getItemHandler(favoriteData);
+        const handlerResult: IServer = await orderHandler.getItemHandler(orderData);
         res.status(
           handlerResult.status === serverStatus.Success
             ? serverStatus.Success
@@ -42,7 +44,7 @@ export const favoriteController = {
             : serverStatus.RequestFail
         ).json(handlerResult);
       } else {
-        const handlerResult: IServer = await favoriteHandler.listItemHandler(favoriteData);
+        const handlerResult: IServer = await orderHandler.listItemHandler(orderData);
         res.status(
           handlerResult.status === serverStatus.Success
             ? serverStatus.Success
@@ -58,10 +60,10 @@ export const favoriteController = {
   },
   patchItemController: async (req: Request, res: Response): Promise<void> => {
     try {
-      const initialFavoriteData: ISpecFavorite = req.body;
-      const favoriteId: number = Number(req.query.favorite);
-      const favoriteData: any = favoriteOptionalValidation.parse(initialFavoriteData);
-      const handlerResult = await favoriteHandler.patchItemHandler(favoriteData, favoriteId);
+      const initialOrderData: ISpecOrder = req.body;
+      const orderId: number = Number(req.query.order);
+      const orderData: any = orderOptionalValidation.parse(initialOrderData);
+      const handlerResult = await orderHandler.patchItemHandler(orderData, orderId);
       const serverResultStatus: number = handlerResult.status;
 
       res.status(
@@ -76,9 +78,9 @@ export const favoriteController = {
   },
   deleteItemController: async (req: Request, res: Response): Promise<void> => {
     try {
-      const favoriteId: number = Number(req.query.favorite);
-      const favoriteData: any = favoriteOptionalValidation.parse({id:favoriteId});
-      const handlerResult = await favoriteHandler.deleteItemHandler(favoriteData);
+      const orderId: number = Number(req.query.order);
+      const orderData: any = orderOptionalValidation.parse({id:orderId});
+      const handlerResult = await orderHandler.deleteItemHandler(orderData);
       const serverResultStatus: number = handlerResult.status;
 
       res.status(

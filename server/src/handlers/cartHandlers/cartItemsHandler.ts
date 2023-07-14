@@ -8,7 +8,7 @@ import { IServer } from "../../interfaces/serverInterfaces/IServer";
 import { validationDAL } from "../../middleware/validateDAL";
 
 export const cartItemsHandler = {
-  addCartHandler: async (addCartData: ICartItem ): Promise<IServer> => {
+  addItemHandler: async (addCartData: ICartItem ): Promise<IServer> => {
     const dalResult: IServer = await cartItemsDAL.addItemDAL(addCartData);
     if (dalResult.status === serverStatus.Created && isICartItem(dalResult.data)) {
       return {
@@ -30,7 +30,7 @@ export const cartItemsHandler = {
       }
     }
   },
-  getCartHandler: async (getCartData: ISpecCartItems): Promise<IServer> => {
+  getItemHandler: async (getCartData: ISpecCartItems): Promise<IServer> => {
     const validationResult = await validationDAL(getCartData)
     if (validationResult.status === serverStatus.Success) {
       const dalResult: IServer = await cartItemsDAL.getItemDAL(getCartData);
@@ -47,7 +47,7 @@ export const cartItemsHandler = {
        return validationResult
     }
   },
-  listCartHandler: async (listItemData: ISpecCartItems): Promise<IServer> => {
+  listItemHandler: async (listItemData: ISpecCartItems): Promise<IServer> => {
     const validationResult = await validationDAL(listItemData);
     if (validationResult.status === serverStatus.Success) {
       const dalResult: IServer = await cartItemsDAL.listItemDAL(listItemData);
@@ -77,7 +77,7 @@ export const cartItemsHandler = {
       return validationResult
     }
   },
-  patchCartHandler: async (patchCartData: ISpecCartItems, cartItemsId: number): Promise<IServer> => {
+  patchItemHandler: async (patchCartData: ISpecCartItems, cartItemsId: number): Promise<IServer> => {
     const validationResult = await validationDAL(patchCartData)
     if (validationResult.status === serverStatus.Success) {
       const dalResult: IServer = await cartItemsDAL.patchItemDAL(patchCartData, cartItemsId);
@@ -94,7 +94,7 @@ export const cartItemsHandler = {
        return validationResult
     }
   },
-  deleteCartHandler: async (deleteCartData: ISpecCartItems): Promise<IServer> => {
+  deleteItemHandler: async (deleteCartData: ISpecCartItems): Promise<IServer> => {
     const validationResult = await validationDAL(deleteCartData)
     if (validationResult.status === serverStatus.Success) {
       const dalResult: IServer = await cartItemsDAL.deleteItemDAL(deleteCartData);

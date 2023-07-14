@@ -3,6 +3,8 @@ import { reviewTableEnumConfig } from "../../enums/ORMEnums/reviewTableEnum";
 
 export const reviewOptionalValidation = z.object({
 
+  id: z.number().optional(),
+
   user: z.number().optional(),
 
   cake: z.number().optional(),

@@ -3,24 +3,30 @@ import { AppDataSource } from "../../AppDataSource";
 import { Order } from "../../entities/Order";
 import { serverMSG } from "../../enums/serverStatusesEnums/serverMSG";
 import { serverStatus } from "../../enums/serverStatusesEnums/serverStatus";
-import { IOrder, isIOrder } from "../../interfaces/orderInterfaces/IOrder";
-import { ISpecOrder } from "../../interfaces/orderInterfaces/ISpecOrder";
 import { IServer } from "../../interfaces/serverInterfaces/IServer";
+import { IOrderItems, isIOrderItems } from "../../interfaces/orderItemInterfaces/IOrderItems";
+import { ISpecOrderItems } from "../../interfaces/orderItemInterfaces/ISpecOrderItems";
+import { OrderItems } from "../../entities/OrderItems";
+import { validationDAL } from "../../middleware/validateDAL";
 
-export const orderDAL = {
-  addItemDAL: async (addItemData: IOrder): Promise<IServer> => {
-    const { user, totalAmount, orderTime } = addItemData;
+export const orderItemsDAL = {
+  addItemDAL: async (addOrderItemData: IOrderItems): Promise<IServer> => {
+    const { order, totalAmount, quantity, price } = addOrderItemData;
     try {
-      const newOrder: Order = AppDataSource.manager.create(Order, {
-        user,
-        totalAmount,
-        orderTime
-      });
-      try {
-        await newOrder.save();
+      let newOrderItem: OrderItems;
+      const validateOrderItem = AppDataSource.manager.create(OrderItems, { order, totalAmount, quantity, price });
+      const validationResult = await validationDAL(validateOrderItem);
+      if (validationResult.status === serverStatus.Success) {
+        newOrderItem = AppDataSource.manager.create(OrderItems, { order, totalAmount, quantity, price });
+      } else {
+        return validationResult;
+      }
+
+      try { 
+        await newOrderItem.save();
         return {
           status: serverStatus.Created,
-          data: newOrder,
+          data: newOrderItem,
           msg: serverMSG.Created
         };
       } catch (error: any) {
@@ -32,7 +38,7 @@ export const orderDAL = {
       }
     } catch (error: any) {
       console.error(error.message, {
-        functionName: orderDAL.addItemDAL.name,
+        functionName: orderItemsDAL.addItemDAL.name,
       });
       return {
         status: serverStatus.RequestFail,
@@ -41,14 +47,16 @@ export const orderDAL = {
       };
     }
   },
-  getItemDAL: async (getItemData: ISpecOrder): Promise<IServer> => {
+
+  getItemDAL: async (getOrderItemData: ISpecOrderItems): Promise<IServer> => {
     try {
-      const { user } = getItemData;
-      const order: Order = await AppDataSource.manager.findOneBy(Order, { user });
-      if (order) {
+      const { order, totalAmount, quantity, price } = getOrderItemData;
+      const orderItem: OrderItems = await AppDataSource.manager.findOneBy(OrderItems, { order, totalAmount, quantity, price });
+      
+      if (orderItem) {
         return {
           status: serverStatus.Success,
-          data: { order: order },
+          data: { orderItem },
           msg: serverMSG.Success
         };
       } else {
@@ -60,7 +68,7 @@ export const orderDAL = {
       }
     } catch (error: any) {
       console.error(error.message, {
-        functionName: orderDAL.getItemDAL.name,
+        functionName: orderItemsDAL.getItemDAL.name,
       });
       return {
         status: serverStatus.RequestFail,
@@ -69,14 +77,15 @@ export const orderDAL = {
       };
     }
   },
-  listItemsDAL: async (listItemData: ISpecOrder): Promise<IServer> => {
+  listItemDAL: async (listOrderItemData: ISpecOrderItems): Promise<IServer> => {
     try {
-      const { user } = listItemData;
-      const orders: Order[] = await AppDataSource.manager.findBy(Order, { user });
-      if (orders.some(order => isIOrder(order))) {
+      const { order, totalAmount, quantity, price } = listOrderItemData;
+      const orderItems: OrderItems[] = await AppDataSource.manager.findBy(OrderItems, { order, totalAmount, quantity, price });
+      
+      if (orderItems.some(orderItem => isIOrderItems(orderItem))) {
         return {
           status: serverStatus.Success,
-          data: { orders: orders },
+          data: { orderItems },
           msg: serverMSG.Success
         };
       } else {
@@ -88,7 +97,7 @@ export const orderDAL = {
       }
     } catch (error: any) {
       console.error(error.message, {
-        functionName: orderDAL.listItemsDAL.name,
+        functionName: orderItemsDAL.listItemDAL.name,
       });
       return {
         status: serverStatus.RequestFail,
@@ -97,14 +106,14 @@ export const orderDAL = {
       };
     }
   },
-  patchItemDAL: async (patchItemData: ISpecOrder, orderId: number): Promise<IServer> => {
+  patchItemDAL: async (patchOrderItemData: ISpecOrderItems, orderItemId: number): Promise<IServer> => {
     try {
-      const { user } = patchItemData;
-      const order: UpdateResult = await AppDataSource.manager.update(Order, orderId, patchItemData);
-      if (order) {
+      const orderItem: UpdateResult = await AppDataSource.manager.update(OrderItems, orderItemId, patchOrderItemData);
+      
+      if (orderItem) {
         return {
           status: serverStatus.Updated,
-          data: { order: order },
+          data: { orderItem },
           msg: serverMSG.Updated
         };
       } else {
@@ -116,7 +125,7 @@ export const orderDAL = {
       }
     } catch (error: any) {
       console.error(error.message, {
-        functionName: orderDAL.patchItemDAL.name,
+        functionName: orderItemsDAL.patchItemDAL.name,
       });
       return {
         status: serverStatus.RequestFail,
@@ -125,13 +134,14 @@ export const orderDAL = {
       };
     }
   },
-  deleteItemDAL: async (deleteOrderData: ISpecOrder): Promise<IServer> => {
+  deleteItemDAL: async (deleteOrderItemData: ISpecOrderItems): Promise<IServer> => {
     try {
-      const order: DeleteResult = await AppDataSource.manager.delete(Order, deleteOrderData);
-      if (order.affected >= 1) {
+      const deletedOrderItem: DeleteResult = await AppDataSource.manager.delete(OrderItems, deleteOrderItemData);
+      
+      if (deletedOrderItem.affected >= 1) {
         return {
           status: serverStatus.Deleted,
-          data: { order: order },
+          data: { orderItems: deletedOrderItem },
           msg: serverMSG.Deleted
         };
       } else {
@@ -143,7 +153,7 @@ export const orderDAL = {
       }
     } catch (error: any) {
       console.error(error.message, {
-        functionName: orderDAL.deleteItemDAL.name,
+        functionName: orderItemsDAL.deleteItemDAL.name,
       });
       return {
         status: serverStatus.RequestFail,
@@ -151,5 +161,5 @@ export const orderDAL = {
         msg: serverMSG.RequestFail
       };
     }
-  },
+  }
 };
