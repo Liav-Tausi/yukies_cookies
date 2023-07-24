@@ -1,0 +1,141 @@
+@font-face {
+  font-family: "Rubik";
+  src: url("./Rubik-VariableFont_wght.ttf");
+}
+
+body {
+  font-family: Rubik, sans-serif;
+  overflow-x: hidden;
+}
+
+.nav-toolbar {
+  justify-content: flex-end;
+}
+
+.button-lang {
+  text-transform: capitalize;
+  margin: 0px 10px 0px 10px;
+  font-size: 15px;
+}
+
+.margin-box-cart-menu {
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+}
+
+.margin-box-cart-menu>*:not(:last-child) {
+  margin-right: 12px;
+}
+
+.app-bar-icon-shopping-cart {
+  transform: scale(1);
+}
+
+.app-bar-icon-language {
+  transform: scale(1.15);
+}
+
+.app-bar-icon-avatar {
+  transform: scale(1.105);
+}
+
+.cake-dripping-nav {
+  width: 102%;
+  height: auto;
+}
+
+.cake-grid-container {
+  position: relative;
+  width: 250px;
+  height: auto;
+}
+
+.oval {
+  width: 140px;
+  height: 33px;
+  border-radius: 50%;
+  transform: scaleX(1);
+  position: absolute;
+  bottom: -25px;
+  transition: top 0.3s ease, width 0.3s ease, height 0.3s ease;
+}
+
+.relative-box {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.gap-cookie-grid {
+  margin-top: 45px;
+  gap: 75px;
+}
+
+.cookie-header {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 30px;
+}
+
+.cookie-footer {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 400;
+  margin-top: 45px;
+}
+
+.cookie-img,
+.cookie-header {
+  position: relative;
+  transition: top 0.3s ease;
+}
+
+.cookie-img:hover {
+  top: -10px;
+  cursor: pointer;
+}
+
+.cookie-img:hover+.oval {
+  width: 132px;
+  height: 32px;
+}
+
+.oval:hover+.cookie-img {
+  top: -10px;
+}
+
+.our-product {
+  margin-bottom: 15px;
+  text-align: right;
+}
+
+/* .cookie-card-grid {
+  padding: 20px 42px 20px 42px;
+  border-radius: 10px;
+} */
+
+/* .drip-splash-one {
+  width: 100%;
+  height: auto;
+}
+
+.drip-splash-two {
+  width: 100%;
+  height: auto;
+}
+
+.drip-splash-three {
+  width: 100%;
+  height: auto;
+} */
+
+/* .cookie-positioning {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  height: 55%;
+} */
