@@ -5,7 +5,16 @@
 
 body {
   font-family: Rubik, sans-serif;
-  overflow-x: hidden;
+}
+
+.divider {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.drawer {
+  display: flex;
+  flex-direction: column;
 }
 
 .nav-toolbar {
@@ -14,7 +23,6 @@ body {
 
 .button-lang {
   text-transform: capitalize;
-  margin: 0px 10px 0px 10px;
   font-size: 15px;
 }
 
@@ -41,7 +49,7 @@ body {
 }
 
 .cake-dripping-nav {
-  width: 102%;
+  width: 100%;
   height: auto;
 }
 
@@ -67,9 +75,82 @@ body {
   justify-content: center;
 }
 
+.bundle-box {
+  border-radius: 30px;
+}
+
+.bundle-inner-box {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bundle-container {
+  display: flex;
+  justify-content: center;
+}
+
+.bundle-container-box {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1.2em;
+  padding-bottom: 1.2em;
+}
+
+.typography-button-box {
+  display: flex;
+  flex-direction: column;
+  gap: 85px;
+  margin: 0px 10px 0px 20px;
+}
+
+
+@media (max-width: 600px) {
+  .bundle-text {
+    text-align: right;
+    margin-bottom: 20px;
+    font-size: 15px;
+  }
+}
+
+
+@media (min-width: 601px) {
+  .bundle-text {
+    text-align: right;
+    margin-bottom: 20px;
+    font-size: 18px;
+  }
+}
+
+
+@media (min-width: 900px) {
+  .bundle-text {
+    text-align: right;
+    margin-bottom: 20px;
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .bundle-text {
+    text-align: right;
+    margin-bottom: 20px;
+    font-size: 22px;
+  }
+}
+
+.shop-now {
+  flex: 1;
+  border-radius: 18px;
+}
+
+.shop-now-padding {
+  padding: 7px 0px 7px 0px;
+  margin: 10px 0px 10px 0px;
+}
+
 .gap-cookie-grid {
-  margin-top: 45px;
-  gap: 75px;
+  padding: 10px 45px 10px 45px;
+  border-radius: 20px;
 }
 
 .cookie-header {
@@ -83,12 +164,13 @@ body {
   text-align: center;
   font-size: 15px;
   font-weight: 400;
-  margin-top: 45px;
+  margin-top: 35px;
 }
 
 .cookie-img,
 .cookie-header {
   position: relative;
+  top: 0;
   transition: top 0.3s ease;
 }
 
@@ -98,7 +180,7 @@ body {
 }
 
 .cookie-img:hover+.oval {
-  width: 132px;
+  width: 130px;
   height: 32px;
 }
 
@@ -107,35 +189,117 @@ body {
 }
 
 .our-product {
-  margin-bottom: 15px;
+  margin-top: 5px;
+  margin-bottom: 25px;
   text-align: right;
 }
 
-/* .cookie-card-grid {
-  padding: 20px 42px 20px 42px;
-  border-radius: 10px;
-} */
-
-/* .drip-splash-one {
-  width: 100%;
-  height: auto;
+.about {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  text-align: right;
 }
 
-.drip-splash-two {
-  width: 100%;
-  height: auto;
+.bundles {
+  margin-top: 50px;
+  margin-bottom: 20px;
+  text-align: right;
 }
 
-.drip-splash-three {
-  width: 100%;
-  height: auto;
-} */
+.shop-now-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
 
-/* .cookie-positioning {
+@media (max-width: 600px) {
+  .shop-now-bundle-container {
+    margin: 0px 10% 0px 10%;
+  }
+}
+
+@media (min-width: 601px) {
+  .shop-now-bundle-container {
+    margin: 0px 25% 0px 25%;
+  }
+}
+
+.carousel-slider {
+  position: relative;
+  overflow: hidden;
+}
+
+.slide-container {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.slide {
+  flex: 0 0 100%;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.cookies {
+  flex: 0 0 calc(33.33% - 20px);
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.arrow {
   position: absolute;
-  top: 35%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 600px) {
+  .arrow.left {
+    left: 5px;
+  }
+
+  .arrow.right {
+    right: 5px;
+  }
+}
+
+@media (min-width: 601px) {
+  .arrow.left {
+    left: -14px;
+  }
+
+  .arrow.right {
+    right: -14px;
+  }
+}
+
+
+.dots {
+  position: absolute;
+  bottom: -55px;
   left: 50%;
-  transform: translate(-50%, -50%);
-  width: 60%;
-  height: 55%;
-} */
+  transform: translateX(-50%);
+  z-index: 3;
+}
+
+.dots button {
+  height: 12px;
+  background-color: #ccc;
+  border: none;
+  border-radius: 50%;
+  margin: 0 4px;
+  cursor: pointer;
+}
+
+.dots button.active {
+  background-color: #333;
+}

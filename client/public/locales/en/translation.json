@@ -2,5 +2,10 @@
   "language": "English",
   "greeting": "welcome",
   "theme": "theme",
-  "ourCookies": "OUR COOKIES:"
+  "ourCookies": "OUR COOKIES:",
+  "about": "ABOUT:",
+  "bundles": "BUNDLES:",
+  "bundleText":"A package of cookies consisting of 5 different brackets of the house cookies",
+  "shopNow" : "shop now"
+
 }

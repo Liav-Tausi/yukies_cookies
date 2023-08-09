@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import { IColors } from '../../utils/enums/styleEnums/colorsEnum';
+import { IColors } from '../../../utils/enums/styleEnums/colorsEnum';
 
 const CookieShadow: React.FC = (): JSX.Element => {
   return (

@@ -1,3 +1,4 @@
-export interface IYKNavBar {
-  theme: string
+export interface YKNavBarProps {
+  changeLang: (value: string) => void;
+  language: string
 }

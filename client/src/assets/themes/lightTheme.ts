@@ -14,12 +14,15 @@ const lightTheme = createTheme({
       light: '#f7398a'
     },
     secondary: {
-      main: '#b13368',
+      main: '#b13368', 
       dark: '#b5b5b5'
     },
     error: {
       main: '#b13368',
     },
+    success: {
+      main: '#FCF9C7'
+    }
   },
   components: {
     MuiCssBaseline: {

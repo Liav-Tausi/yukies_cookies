@@ -1,4 +1,8 @@
 export enum IAppConfig {
   LightTheme = "lightTheme",
-  DarkTheme = "darkTheme"
+  DarkTheme = "darkTheme",
+  He = "he",
+  En = "En",
+  Right = "right",
+  Left = "left"
 }

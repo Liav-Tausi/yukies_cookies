@@ -1,17 +1,21 @@
 import { IYkCookieCard } from "../../utils/interfaces/YkCookieCard/YkCookieCard"
 import {Grid, Box, Typography, Button} from "@mui/material"
-// import { useContext } from "react"
-import CookieShadow from "./CookieShadow"
+import { useContext } from "react"
+import CookieShadow from "../abstactComponents/CookieShadow/CookieShadow"
 import { IColors } from "../../utils/enums/styleEnums/colorsEnum"
-// import { IAppConfig } from "../../utils/enums/appConfigEnums/appConfigs"
-// import { AppContext } from "../../reducers/appConfigReducer/appConfigReducer"
+import { IAppConfig } from "../../utils/enums/appConfigEnums/appConfigs"
+import { AppContext } from "../../reducers/appConfigReducer/appConfigReducer"
+import { useTranslation } from "react-i18next"
 
-// sx={{ border: "2px solid " + (themeMode === IAppConfig.DarkTheme ? "#191919" : "#FCE6E0") }}
+
+
 
 const YkCookieCard: React.FC<IYkCookieCard> = ({imgSrc, name, description}: IYkCookieCard): JSX.Element => {
-  // const { themeMode } = useContext(AppContext)
+  const { t } = useTranslation();
+  const { themeMode } = useContext(AppContext)
+
   return (
-    <Grid className="cookie-card-grid" >
+    <Grid className="gap-cookie-grid" sx={{ border: "3px dashed " + (themeMode === IAppConfig.DarkTheme ? "#3D3836" : "#954535") }}>
       <Typography className="cookie-header" color={IColors.Secondary}>
         {name}
       </Typography>
@@ -23,7 +27,11 @@ const YkCookieCard: React.FC<IYkCookieCard> = ({imgSrc, name, description}: IYkC
         <Typography className="cookie-footer" color={IColors.Secondary}>
           {description}
         </Typography>
-        <Button color={"secondary"}>shop now</Button>
+        <Box className="shop-now-container">
+          <Button  className="shop-now" color={"secondary"} variant="outlined" >
+            {t("shopNow")}
+          </Button>
+        </Box>
       </Box>
     </Grid>
   )

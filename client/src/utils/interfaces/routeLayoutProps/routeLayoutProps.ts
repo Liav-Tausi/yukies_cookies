@@ -1,3 +1,4 @@
 export interface RouteLayoutProps {
-  theme: string
+  changeLang: (value: string) => void;
+  language: string
 }
